@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Agro-Entrepreneurship NC II — Comprehensive Reviewer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --earth: #2d4a1e;
+    --moss: #4a7c3f;
+    --sage: #7aad6b;
+    --harvest: #c8860a;
+    --gold: #e8a820;
+    --cream: #f5f0e8;
+    --parchment: #ede6d6;
+    --soil: #1a2d10;
+    --mist: #d6e8d0;
+    --ink: #1c1c1c;
+    --white: #fefefe;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--soil);
+    color: var(--cream);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    background: linear-gradient(135deg, var(--soil) 0%, var(--earth) 60%, #1e3a12 100%);
+    padding: 60px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--harvest);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(122,173,107,.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(200,134,10,.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--harvest);
+    color: var(--soil);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 15px;
+    color: var(--mist);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .stat-label { font-size: 11px; color: var(--mist); letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; }
+
+  /* ---- NAV TABS ---- */
+  .tabs-wrapper {
+    background: var(--earth);
+    border-bottom: 2px solid var(--moss);
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tabs {
+    display: flex;
+    gap: 2px;
+    padding: 0 16px;
+    min-width: max-content;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 14px 16px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sage);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all .2s;
+    letter-spacing: .3px;
+  }
+  .tab-btn:hover { color: var(--gold); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ---- MAIN CONTENT ---- */
+  .main { max-width: 900px; margin: 0 auto; padding: 32px 16px 64px; }
+
+  .section-panel { display: none; }
+  .section-panel.active { display: block; }
+
+  /* ---- SECTION HEADER ---- */
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(122,173,107,.3);
+  }
+  .section-icon {
+    font-size: 30px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--white);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .section-header p {
+    font-size: 14px;
+    color: var(--sage);
+    line-height: 1.5;
+  }
+
+  /* ---- KEY TERM CARDS ---- */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .term-card {
+    background: rgba(74,124,63,.12);
+    border: 1px solid rgba(74,124,63,.35);
+    border-radius: 10px;
+    padding: 16px;
+    transition: border-color .2s, background .2s;
+    cursor: default;
+  }
+  .term-card:hover {
+    border-color: var(--sage);
+    background: rgba(74,124,63,.2);
+  }
+  .term-card h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+  }
+  .term-card p { font-size: 13.5px; color: var(--cream); line-height: 1.55; }
+
+  /* ---- BLOCK HEADING ---- */
+  .block-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--gold);
+    font-weight: 700;
+    margin: 28px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .block-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(232,168,32,.4), transparent);
+  }
+
+  /* ---- PROSE BLOCKS ---- */
+  .content-block {
+    background: rgba(255,255,255,.04);
+    border-left: 3px solid var(--moss);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--cream);
+  }
+  .content-block strong { color: var(--gold); font-weight: 600; }
+  .content-block em { color: var(--sage); font-style: normal; font-weight: 600; }
+
+  /* ---- NUMBERED LIST ---- */
+  .steps-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .steps-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: rgba(255,255,255,.03);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    color: var(--cream);
+    line-height: 1.55;
+  }
+  .step-num {
+    background: var(--harvest);
+    color: var(--soil);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ---- ORAL Q ACCORDION ---- */
+  .oral-q {
+    border: 1px solid rgba(74,124,63,.3);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .oral-q-trigger {
+    width: 100%;
+    background: rgba(74,124,63,.1);
+    border: none;
+    padding: 13px 16px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--cream);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    transition: background .2s;
+    line-height: 1.5;
+  }
+  .oral-q-trigger:hover { background: rgba(74,124,63,.2); }
+  .oral-q-trigger .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--harvest);
+    min-width: 28px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .oral-q-trigger .chevron {
+    margin-left: auto;
+    color: var(--sage);
+    font-size: 14px;
+    flex-shrink: 0;
+    transition: transform .25s;
+    padding-top: 1px;
+  }
+  .oral-q.open .chevron { transform: rotate(180deg); }
+  .oral-q-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+    background: rgba(26,45,16,.5);
+  }
+  .oral-q.open .oral-q-answer { max-height: 600px; }
+  .oral-q-answer-inner {
+    padding: 12px 16px 14px 54px;
+    font-size: 13.5px;
+    color: #c8ddc4;
+    line-height: 1.65;
+  }
+  .oral-q-answer-inner strong { color: var(--gold); }
+  .oral-q-answer-inner ul { padding-left: 18px; margin-top: 6px; display: flex; flex-direction: column; gap: 4px; }
+
+  /* ---- MCQ QUIZ ---- */
+  .quiz-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .quiz-progress-bar {
+    width: 100%;
+    height: 5px;
+    background: rgba(255,255,255,.1);
+    border-radius: 3px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--moss), var(--gold));
+    border-radius: 3px;
+    transition: width .4s ease;
+  }
+  .quiz-q-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .quiz-q-card.visible { display: block; }
+  .quiz-q-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 14px;
+    line-height: 1.55;
+  }
+  .quiz-q-section {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--harvest);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option-btn {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    padding: 11px 14px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13.5px;
+    color: var(--cream);
+    transition: all .18s;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.45;
+  }
+  .option-btn .opt-letter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--sage);
+    min-width: 18px;
+    padding-top: 1px;
+    flex-shrink: 0;
+  }
+  .option-btn:hover:not(:disabled) {
+    background: rgba(74,124,63,.25);
+    border-color: var(--sage);
+  }
+  .option-btn.correct {
+    background: rgba(74,124,63,.35);
+    border-color: var(--sage);
+    color: #b4e8a8;
+  }
+  .option-btn.wrong {
+    background: rgba(180,50,50,.25);
+    border-color: #c05050;
+    color: #f4a0a0;
+  }
+  .option-btn:disabled { cursor: default; }
+  .feedback-msg {
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 7px;
+    margin-top: 10px;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback-msg.correct { background: rgba(74,124,63,.2); color: #a8e09c; border: 1px solid rgba(74,124,63,.4); }
+  .feedback-msg.wrong { background: rgba(180,50,50,.2); color: #f4b0b0; border: 1px solid rgba(180,50,50,.35); }
+  .feedback-msg.visible { display: block; }
+
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .btn {
+    background: var(--harvest);
+    color: var(--soil);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+    letter-spacing: .3px;
+  }
+  .btn:hover { background: var(--gold); transform: translateY(-1px); }
+  .btn:disabled { opacity: .4; cursor: default; transform: none; }
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--moss);
+    color: var(--sage);
+  }
+  .btn-outline:hover { background: rgba(74,124,63,.2); border-color: var(--sage); color: var(--white); }
+  .quiz-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--sage);
+  }
+  .score-display {
+    display: none;
+    background: rgba(74,124,63,.15);
+    border: 1px solid var(--moss);
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+    margin-top: 24px;
+  }
+  .score-display.visible { display: block; }
+  .score-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .score-label { font-size: 13px; color: var(--sage); margin-top: 6px; margin-bottom: 18px; }
+  .score-grade {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .grade-pass { color: #80e070; }
+  .grade-fail { color: #e07070; }
+
+  /* ---- EVIDENCE PLAN TABLE ---- */
+  .evidence-table-wrap { overflow-x: auto; margin-bottom: 24px; }
+  .evidence-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 560px;
+  }
+  .evidence-table th {
+    background: var(--earth);
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 12px;
+    text-align: left;
+    border: 1px solid rgba(74,124,63,.3);
+  }
+  .evidence-table td {
+    padding: 9px 12px;
+    border: 1px solid rgba(74,124,63,.2);
+    color: var(--cream);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .evidence-table tr:nth-child(even) td { background: rgba(74,124,63,.06); }
+  .evidence-table tr:hover td { background: rgba(74,124,63,.12); }
+  .method-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--sage);
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .cat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--harvest);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(200,134,10,.12);
+    border: 1px solid rgba(200,134,10,.25);
+    border-radius: 3px;
+    padding: 2px 7px;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+
+  /* ---- HIGHLIGHT BOXES ---- */
+  .highlight-box {
+    background: rgba(200,134,10,.1);
+    border: 1px solid rgba(200,134,10,.3);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    font-size: 13.5px;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+  .highlight-box .hb-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--harvest);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .highlight-box strong { color: var(--gold); }
+
+  /* ---- TOS TABLE ---- */
+  .tos-table-wrap { overflow-x: auto; }
+  .tos-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 500px;
+  }
+  .tos-table th {
+    background: rgba(74,124,63,.25);
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 14px;
+    border: 1px solid rgba(74,124,63,.35);
+    text-align: left;
+  }
+  .tos-table td {
+    padding: 9px 14px;
+    border: 1px solid rgba(74,124,63,.2);
+    color: var(--cream);
+    line-height: 1.5;
+  }
+  .tos-table tr:nth-child(even) td { background: rgba(74,124,63,.07); }
+  .tos-table .total-row td { background: rgba(200,134,10,.15); color: var(--gold); font-weight: 600; }
+  .cog-badge {
+    background: rgba(74,124,63,.2);
+    border: 1px solid rgba(74,124,63,.35);
+    border-radius: 3px;
+    padding: 2px 7px;
+    font-size: 11px;
+    color: var(--sage);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ---- TWO COLUMN LAYOUT ---- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+    .quiz-q-card { padding: 16px; }
+    .score-big { font-size: 48px; }
+  }
+
+  /* Exam tip callout */
+  .exam-tip {
+    background: rgba(200,134,10,.08);
+    border: 1px solid rgba(200,134,10,.25);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 13px;
+    color: #e8d5a8;
+    line-height: 1.6;
+  }
+  .exam-tip .tip-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--harvest);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Subsection divider */
+  .subsection {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--sage);
+    font-weight: 700;
+    margin: 24px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(74,124,63,.2);
+  }
+
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 10px 0; padding-left: 0; }
+  .check-list li {
+    padding-left: 22px;
+    position: relative;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--cream);
+  }
+  .check-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--sage);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <div class="hero-badge">TESDA Qualification</div>
+  <h1>Agro-Entrepreneurship<br/><span>NC II</span> Reviewer</h1>
+  <p>Comprehensive study guide covering Basic, Common, and Core competencies for the TESDA National Certificate II assessment. Based on official TESDA learning modules.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">10</div><div class="stat-label">Topics</div></div>
+    <div class="stat"><div class="stat-num">50</div><div class="stat-label">Oral Questions</div></div>
+    <div class="stat"><div class="stat-num">100</div><div class="stat-label">Quiz Items</div></div>
+    <div class="stat"><div class="stat-num">15</div><div class="stat-label">Modules</div></div>
+  </div>
+</div>
+
+<!-- ==================== TABS ==================== -->
+<div class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('concepts')">&#128218; Concepts</button>
+    <button class="tab-btn" onclick="switchTab('market')">&#128202; Market &amp; Planning</button>
+    <button class="tab-btn" onclick="switchTab('production')">&#127793; Production</button>
+    <button class="tab-btn" onclick="switchTab('marketing')">&#128227; Marketing</button>
+    <button class="tab-btn" onclick="switchTab('finance')">&#128176; Finance</button>
+    <button class="tab-btn" onclick="switchTab('legal')">&#9878;&#65039; Legal &amp; Ethics</button>
+    <button class="tab-btn" onclick="switchTab('workplace')">&#127941; Workplace Skills</button>
+    <button class="tab-btn" onclick="switchTab('oral')">&#128483;&#65039; Oral Q&amp;A</button>
+    <button class="tab-btn" onclick="switchTab('quiz')">&#9999;&#65039; Practice Quiz</button>
+    <button class="tab-btn" onclick="switchTab('evidence')">&#128203; Evidence Plan</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ==================== SECTION 1 — BASIC CONCEPTS ==================== -->
+<div id="panel-concepts" class="section-panel active">
+  <div class="section-header">
+    <div class="section-icon">&#128218;</div>
+    <div>
+      <h2>Basic Principles &amp; Concepts</h2>
+      <p>Foundations of agro-entrepreneurship, sustainable agriculture, and rural development aligned with TESDA NC II core competencies.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Core Definitions</div>
+  <div class="card-grid">
+    <div class="term-card">
+      <h4>Agro-Entrepreneurship</h4>
+      <p>The application of entrepreneurial principles — innovation, risk-taking, business management — to agricultural enterprises, aimed at creating value-added products and sustainable farm businesses. It combines farming knowledge with business acumen to generate profit while ensuring environmental stewardship.</p>
+    </div>
+    <div class="term-card">
+      <h4>Agro-Entrepreneur</h4>
+      <p>An individual who combines farming knowledge with business acumen. Differs from a traditional farmer by emphasizing <strong>technological innovation</strong>, market orientation, and profit-driven growth — not just subsistence. Takes calculated risks to create value in the agriculture sector.</p>
+    </div>
+    <div class="term-card">
+      <h4>Sustainable Agriculture</h4>
+      <p>Practices that minimize environmental impact, preserve biodiversity, and ensure long-term soil and ecosystem health. Includes crop rotation, integrated pest management (IPM), organic methods, conservation tillage, and agroforestry. Aims to meet present needs without compromising future generations.</p>
+    </div>
+    <div class="term-card">
+      <h4>Rural Development</h4>
+      <p>Agro-entrepreneurship contributes through <strong>job creation</strong>, income generation, community engagement, and reducing urban migration by making rural livelihoods economically viable. It strengthens local economies and improves food security at the community level.</p>
+    </div>
+    <div class="term-card">
+      <h4>Value Chain</h4>
+      <p>The full range of activities required to bring a product from conception to end consumer — including input supply, production, processing, marketing, and distribution. Understanding value chains helps agro-entrepreneurs identify profit opportunities and efficiency improvements.</p>
+    </div>
+    <div class="term-card">
+      <h4>Food Security</h4>
+      <p>A situation where all people, at all times, have physical, social, and economic access to sufficient, safe, and nutritious food. Agro-entrepreneurs contribute by increasing local food production, reducing post-harvest losses, and improving market access.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Key Principles</div>
+  <div class="content-block">
+    <strong>Primary Goal:</strong> Agro-entrepreneurship seeks to ensure <em>sustainable practices</em> — not merely maximize profit or minimize cost. It balances economic viability, ecological responsibility, and social equity (the "triple bottom line" of people, planet, and profit).
+  </div>
+  <div class="content-block">
+    <strong>Role of Creativity:</strong> Essential for innovation and problem-solving — developing new value-adding products, finding efficient production methods, designing new market strategies, and overcoming resource constraints. Creative thinking drives differentiation and competitive advantage.
+  </div>
+  <div class="content-block">
+    <strong>Agro-Entrepreneur vs. Traditional Farmer:</strong> The key differentiator is emphasis on <em>technological innovation</em> and entrepreneurial thinking — market analysis, scaling, branding, financial management, and strategic planning — rather than subsistence-level crop production focused only on family consumption.
+  </div>
+  <div class="content-block">
+    <strong>Sustainable Agriculture Aims:</strong> To minimize environmental impact through responsible resource use — reduced pesticide dependence, water conservation, soil health maintenance, biodiversity preservation, and climate change adaptation.
+  </div>
+
+  <div class="exam-tip">
+    <span class="tip-label">&#9889; Remember for the Exam</span>
+    The primary goal of agro-entrepreneurship is <strong>C — Ensuring sustainable practices</strong>, not simply profit maximization (A). Watch for this distinction — it appears frequently in multiple-choice items. Agro-entrepreneurs contribute to rural development through <strong>job creation and income generation</strong> (B), not industrialization or urban focus.
+  </div>
+
+  <div class="block-heading">Core Competencies Overview</div>
+  <div class="highlight-box">
+    <span class="hb-label">TESDA NC II Competency Units</span>
+    The Agro-Entrepreneurship NC II Qualification consists of competencies that a person must achieve to:
+    <ul style="margin-top:6px; padding-left:18px; display:flex; flex-direction:column; gap:4px;">
+      <li><strong>Assess Market Opportunities</strong> — identify market needs and trends</li>
+      <li><strong>Establish Farm Production Plan</strong> — plan crop/animal production cycles</li>
+      <li><strong>Handle Finances</strong> — manage budgets, records, and financial reports</li>
+      <li><strong>Market Produce</strong> — develop strategies to sell agricultural products</li>
+    </ul>
+  </div>
+
+  <div class="block-heading">Basic Competencies</div>
+  <ul class="check-list">
+    <li>Participate in Workplace Communications</li>
+    <li>Work in a Team Environment</li>
+    <li>Solve and Address General Workplace Problems</li>
+    <li>Career Development and Life Decisions</li>
+    <li>Contribute to Workplace Innovations</li>
+    <li>Present Relevant Information</li>
+    <li>Practice Occupational Safety and Health Policies</li>
+    <li>Exercise Efficient and Effective Sustainable Practices</li>
+    <li>Practice Entrepreneurial Skills in the Workplace</li>
+  </ul>
+
+  <div class="block-heading">Common Competencies</div>
+  <ul class="check-list">
+    <li>Apply Safety Measures in Farm Operations</li>
+    <li>Perform Estimations and Calculations</li>
+    <li>Provide Quality Customer Service</li>
+    <li>Comply with Quality and Ethical Standards</li>
+  </ul>
+</div>
+
+<!-- ==================== SECTION 2 — MARKET & PLANNING ==================== -->
+<div id="panel-market" class="section-panel">
+  <div class="section-header">
+    <div class="section-icon">&#128202;</div>
+    <div>
+      <h2>Market Opportunities &amp; Planning</h2>
+      <p>Assessing market demand, analyzing trends, conducting SWOT analysis, and developing business plans for agricultural enterprises.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Market Assessment Steps</div>
+  <ol class="steps-list">
+    <li><span class="step-num">1</span><div><strong>Identify Market Needs</strong> — Observe consumer behavior, survey potential customers, analyze local demand for agricultural products, and identify gaps in the current market supply.</div></li>
+    <li><span class="step-num">2</span><div><strong>Conduct Market Research</strong> — Gather data on competitors, pricing, consumer preferences, seasonal trends, and potential barriers to entry using primary and secondary sources.</div></li>
+    <li><span class="step-num">3</span><div><strong>Analyze the Value Chain</strong> — Map input suppliers, producers, processors, traders, retailers, and consumers to identify where value is added and profit margins are highest.</div></li>
+    <li><span class="step-num">4</span><div><strong>Perform SWOT Analysis</strong> — Evaluate internal Strengths and Weaknesses, external Opportunities and Threats facing the agro-enterprise.</div></li>
+    <li><span class="step-num">5</span><div><strong>Select Target Market</strong> — Choose a specific customer segment based on demographics, purchasing power, accessibility, and alignment with the farm's production capacity.</div></li>
+    <li><span class="step-num">6</span><div><strong>Develop Marketing Strategy</strong> — Define product positioning, pricing approach, distribution channels, and promotional activities for the selected market segment.</div></li>
+  </ol>
+
+  <div class="block-heading">SWOT Analysis for Agro-Enterprises</div>
+  <div class="card-grid">
+    <div class="term-card">
+      <h4>Strengths (Internal)</h4>
+      <p>Unique farm resources, skilled labor, fertile land, water access, existing equipment, family farming experience, local knowledge, organic certification, proximity to markets.</p>
+    </div>
+    <div class="term-card">
+      <h4>Weaknesses (Internal)</h4>
+      <p>Limited capital, lack of machinery, small land area, inadequate storage, poor road access, limited technical knowledge, no established brand, seasonal production constraints.</p>
+    </div>
+    <div class="term-card">
+      <h4>Opportunities (External)</h4>
+      <p>Growing demand for organic products, government subsidies, export markets, agritourism potential, new processing technologies, cooperative partnerships, rising consumer health consciousness.</p>
+    </div>
+    <div class="term-card">
+      <h4>Threats (External)</h4>
+      <p>Climate change and extreme weather, pest and disease outbreaks, price volatility, competition from imports, policy changes, land conversion, rising input costs.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Business Plan Essentials</div>
+  <div class="content-block">
+    <strong>Executive Summary:</strong> Overview of the business concept, goals, target market, and financial projections. Written last but placed first — it must capture the essence of the entire plan in 1-2 pages.
+  </div>
+  <div class="content-block">
+    <strong>Market Analysis:</strong> Detailed research on industry trends, target customers, competitors, and market size. Demonstrates that a viable market exists for the proposed product or service.
+  </div>
+  <div class="content-block">
+    <strong>Production/Operations Plan:</strong> Description of farming activities, land use, crop/animal selection, input requirements, equipment, labor needs, and production timeline.
+  </div>
+  <div class="content-block">
+    <strong>Financial Projections:</strong> Budget forecasts including startup costs, operating expenses, revenue projections, break-even analysis, cash flow statements, and return on investment (ROI) calculations.
+  </div>
+
+  <div class="exam-tip">
+    <span class="tip-label">&#9889; Remember for the Exam</span>
+    A complete business plan includes: <strong>Executive Summary, Market Analysis, Production/Operations Plan, and Financial Projections</strong>. The executive summary is always written <em>last</em> but appears first in the document. SWOT analysis evaluates both internal factors (S,W) and external factors (O,T).
+  </div>
+</div>
+
+<!-- ==================== SECTION 3 — PRODUCTION ==================== -->
+<div id="panel-production" class="section-panel">
+  <div class="section-header">
+    <div class="section-icon">&#127793;</div>
+    <div>
+      <h2>Farm Production Planning</h2>
+      <p>Crop selection, land preparation, planting schedules, input management, pest control, harvest planning, and post-harvest handling.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Production Planning Steps</div>
+  <ol class="steps-list">
+    <li><span class="step-num">1</span><div><strong>Select Crops/Livestock</strong> — Choose based on market demand, climate suitability, soil conditions, water availability, and the farmer's technical expertise.</div></li>
+    <li><span class="step-num">2</span><div><strong>Prepare the Land</strong> — Clear, plow, harrow, and level the field. Conduct soil testing to determine pH, nutrient content, and amendment needs (lime, organic matter).</div></li>
+    <li><span class="step-num">3</span><div><strong>Develop Planting Calendar</strong> — Schedule planting, fertilization, irrigation, pest management, and harvesting based on crop requirements and seasonal weather patterns.</div></li>
+    <li><span class="step-num">4</span><div><strong>Manage Inputs</strong> — Source quality seeds, fertilizers, pesticides, and equipment. Calculate quantities needed and budget for procurement. Maintain inventory records.</div></li>
+    <li><span class="step-num">5</span><div><strong>Monitor Growth</strong> — Regular field inspection for pest/disease, water stress, nutrient deficiency. Keep production records and adjust management practices as needed.</div></li>
+    <li><span class="step-num">6</span><div><strong>Harvest &amp; Post-Harvest</strong> — Harvest at optimal maturity. Handle produce carefully to minimize bruising. Cool, sort, grade, and package for market. Proper storage reduces losses.</div></li>
+  </ol>
+
+  <div class="block-heading">Sustainable Production Practices</div>
+  <div class="card-grid">
+    <div class="term-card">
+      <h4>Crop Rotation</h4>
+      <p>Systematic alternation of crops in a specific sequence across seasons to maintain soil fertility, break pest/disease cycles, reduce erosion, and improve yields over time.</p>
+    </div>
+    <div class="term-card">
+      <h4>Integrated Pest Management (IPM)</h4>
+      <p>Ecological approach combining biological controls, resistant varieties, cultural practices, and minimal chemical use to manage pests below economic injury levels.</p>
+    </div>
+    <div class="term-card">
+      <h4>Organic Farming</h4>
+      <p>Production system avoiding synthetic fertilizers, pesticides, and GMOs. Relies on compost, biological pest control, crop rotation, and natural soil amendments.</p>
+    </div>
+    <div class="term-card">
+      <h4>Conservation Tillage</h4>
+      <p>Minimizing soil disturbance during land preparation to preserve soil structure, moisture, organic matter, and reduce erosion. Includes zero-till and minimum-till systems.</p>
+    </div>
+    <div class="term-card">
+      <h4>Agroforestry</h4>
+      <p>Integration of trees and shrubs with crops/livestock to create environmental and economic benefits: shade, windbreaks, nitrogen fixation, additional income from timber/fruit.</p>
+    </div>
+    <div class="term-card">
+      <h4>Water Harvesting</h4>
+      <p>Collection and storage of rainwater for irrigation during dry periods. Methods include contour bunds, farm ponds, drip irrigation, and mulching to reduce evaporation.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Post-Harvest Handling</div>
+  <div class="content-block">
+    <strong>Importance:</strong> Proper post-harvest handling prevents quality deterioration, reduces losses, maintains nutritional value, and ensures food safety. Up to <strong>30-40% of produce</strong> is lost in developing countries due to poor post-harvest practices.
+  </div>
+  <div class="content-block">
+    <strong>Key Practices:</strong> Harvest at proper maturity, avoid mechanical injury, pre-cool immediately, maintain cold chain, sort and grade by quality standards, use appropriate packaging materials, and store in well-ventilated, pest-free facilities.
+  </div>
+
+  <div class="exam-tip">
+    <span class="tip-label">&#9889; Remember for the Exam</span>
+    Post-harvest losses in developing countries can reach <strong>30-40%</strong>. The primary goals of post-harvest handling are: maintain quality, prevent spoilage, ensure food safety, and extend shelf life. Proper harvesting at the <em>correct maturity stage</em> is the first critical step.
+  </div>
+</div>
+
+<!-- ==================== SECTION 4 — MARKETING ==================== -->
+<div id="panel-marketing" class="section-panel">
+  <div class="section-header">
+    <div class="section-icon">&#128227;</div>
+    <div>
+      <h2>Marketing Produce</h2>
+      <p>Product development, pricing strategies, distribution channels, branding, and promotional techniques for agricultural products.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">The 4 P's of Agricultural Marketing</div>
+  <div class="card-grid">
+    <div class="term-card">
+      <h4>Product</h4>
+      <p>The agricultural good being sold — its quality, variety, packaging, grading, and any value-added processing. Product must meet customer needs and quality standards consistently.</p>
+    </div>
+    <div class="term-card">
+      <h4>Price</h4>
+      <p>Determined by production cost, competitor pricing, demand level, quality grade, and market positioning. Common methods: cost-plus, competitive pricing, value-based pricing.</p>
+    </div>
+    <div class="term-card">
+      <h4>Place (Distribution)</h4>
+      <p>Channels through which produce reaches consumers: direct sales (farm gate, farmers' markets), wholesalers, retailers, processors, exporters, or online platforms.</p>
+    </div>
+    <div class="term-card">
+      <h4>Promotion</h4>
+      <p>Activities to inform and persuade customers: advertising, social media, product demonstrations, free samples, loyalty programs, participation in trade fairs and exhibits.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Marketing Channels</div>
+  <ol class="steps-list">
+    <li><span class="step-num">1</span><div><strong>Direct Marketing</strong> — Selling directly to consumers through farm stands, farmers' markets, Community Supported Agriculture (CSA), and online platforms. Highest profit margin but requires more effort.</div></li>
+    <li><span class="step-num">2</span><div><strong>Wholesale</strong> — Selling in bulk to traders, wholesalers, or institutional buyers (restaurants, schools, hospitals). Lower prices but larger volumes and predictable demand.</div></li>
+    <li><span class="step-num">3</span><div><strong>Retail</strong> — Supplying supermarkets, grocery stores, and specialty shops. Requires consistent quality, proper packaging, barcode labeling, and sometimes certifications.</div></li>
+    <li><span class="step-num">4</span><div><strong>Processing</strong> — Selling to food processors for transformation into value-added products (jams, dried fruits, juices). Requires meeting processor quality specifications and volume requirements.</div></li>
+    <li><span class="step-num">5</span><div><strong>Export</strong> — Selling to international markets. Requires compliance with import standards, phytosanitary certificates, traceability systems, and reliable logistics partners.</div></li>
+  </ol>
+
+  <div class="block-heading">Value-Added Products</div>
+  <div class="content-block">
+    <strong>Definition:</strong> Products that have been processed, transformed, or packaged to increase their market value beyond the raw commodity stage. Value-adding captures a larger share of the consumer peso and reduces vulnerability to commodity price fluctuations.
+  </div>
+  <div class="content-block">
+    <strong>Examples:</strong> Fresh vegetables turned into pickled products, fruits processed into jams/jellies/dried snacks, milk into cheese/yogurt, herbs into essential oils/teas, and flowers into bouquets/gift arrangements.
+  </div>
+
+  <div class="block-heading">Branding &amp; Labeling</div>
+  <div class="content-block">
+    <strong>Brand:</strong> A name, term, design, symbol, or combination that identifies a seller's product and differentiates it from competitors. Strong brands build customer loyalty and command premium prices.
+  </div>
+  <div class="content-block">
+    <strong>Labeling Requirements:</strong> Product name, net weight, ingredients (for processed goods), producer name/address, production date, expiry/best-before date, storage instructions, and any certification logos (organic, GAP, etc.).
+  </div>
+
+  <div class="exam-tip">
+    <span class="tip-label">&#9889; Remember for the Exam</span>
+    The <strong>4 P's</strong> are Product, Price, Place, and Promotion. <strong>Value-adding</strong> increases profit margins by capturing more of the consumer peso. Direct marketing channels offer the highest margins but require the most effort in sales and distribution.
+  </div>
+</div>
+
+<!-- ==================== SECTION 5 — FINANCE ==================== -->
+<div id="panel-finance" class="section-panel">
+  <div class="section-header">
+    <div class="section-icon">&#128176;</div>
+    <div>
+      <h2>Financial Management</h2>
+      <p>Budgeting, record-keeping, financial statements, cost analysis, pricing, credit management, and accessing capital for farm operations.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Types of Farm Records</div>
+  <div class="card-grid">
+    <div class="term-card">
+      <h4>Production Records</h4>
+      <p>Document crop/animal performance: planting dates, yields, inputs used, pest incidents, and weather conditions. Essential for tracking productivity and planning future seasons.</p>
+    </div>
+    <div class="term-card">
+      <h4>Financial Records</h4>
+      <p>Track all income and expenses: sales receipts, purchase invoices, labor payments, loan records, and depreciation. The foundation for profitability analysis and tax compliance.</p>
+    </div>
+    <div class="term-card">
+      <h4>Inventory Records</h4>
+      <p>Monitor stock levels of seeds, fertilizers, chemicals, equipment, and harvested produce. Helps prevent shortages, reduces waste, and supports production planning.</p>
+    </div>
+    <div class="term-card">
+      <h4>Asset Records</h4>
+      <p>Catalog all farm assets: land, buildings, machinery, tools, livestock, and perennial crops. Track acquisition dates, costs, maintenance history, and depreciation.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Key Financial Statements</div>
+  <div class="content-block">
+    <strong>Cash Flow Statement:</strong> Tracks actual cash inflows and outflows over a period. Shows when money comes in and goes out — critical for managing liquidity and ensuring the farm can pay bills on time.
+  </div>
+  <div class="content-block">
+    <strong>Income Statement (Profit &amp; Loss):</strong> Summarizes revenues, costs, and expenses over a period to calculate net profit or loss. Formula: <em>Revenue - Cost of Goods Sold - Operating Expenses = Net Income</em>.
+  </div>
+  <div class="content-block">
+    <strong>Balance Sheet:</strong> Snapshot of farm financial position at a point in time. Formula: <em>Assets = Liabilities + Owner's Equity</em>. Shows what the farm owns, owes, and the owner's net worth.
+  </div>
+
+  <div class="block-heading">Cost Analysis</div>
+  <ol class="steps-list">
+    <li><span class="step-num">1</span><div><strong>Fixed Costs</strong> — Costs that do not change with production volume: land rent, insurance, equipment depreciation, permanent labor salaries, and property taxes.</div></li>
+    <li><span class="step-num">2</span><div><strong>Variable Costs</strong> — Costs that change with production level: seeds, fertilizers, pesticides, fuel, seasonal labor, packaging, and transportation.</div></li>
+    <li><span class="step-num">3</span><div><strong>Total Cost</strong> = Fixed Costs + Variable Costs. Used to determine the minimum price needed and the production volume required for profitability.</div></li>
+    <li><span class="step-num">4</span><div><strong>Break-Even Analysis</strong> — Calculate the production volume or price at which total revenue equals total cost. Below break-even, the farm loses money; above it, the farm earns profit.</div></li>
+  </ol>
+
+  <div class="block-heading">Pricing Strategies</div>
+  <div class="content-block">
+    <strong>Cost-Plus Pricing:</strong> Calculate total production cost per unit, then add a desired profit margin. Simple and ensures costs are covered, but ignores market demand and competitor pricing.
+  </div>
+  <div class="content-block">
+    <strong>Market-Based Pricing:</strong> Set price based on prevailing market rates for similar products. Requires regular market monitoring. Common for commodity crops where the farm is a price-taker.
+  </div>
+  <div class="content-block">
+    <strong>Value-Based Pricing:</strong> Set price based on the perceived value to the customer — organic, heirloom, locally-grown, or premium varieties can command higher prices due to quality differentiation.
+  </div>
+
+  <div class="block-heading">Access to Capital</div>
+  <div class="content-block">
+    <strong>Sources:</strong> Personal savings, family loans, bank credit lines, agricultural cooperatives, government programs (DA, SBC, Land Bank), microfinance institutions, venture capital for agri-startups, and crowdfunding platforms.
+  </div>
+  <div class="content-block">
+    <strong>5 Cs of Credit:</strong> <strong>Character</strong> (credit history), <strong>Capacity</strong> (ability to repay), <strong>Capital</strong> (owner's equity), <strong>Collateral</strong> (assets pledged), and <strong>Conditions</strong> (economic climate and loan purpose). Lenders evaluate all five when assessing loan applications.
+  </div>
+
+  <div class="exam-tip">
+    <span class="tip-label">&#9889; Remember for the Exam</span>
+    The <strong>5 Cs of Credit</strong> are: Character, Capacity, Capital, Collateral, and Conditions. A <strong>break-even point</strong> is where total revenue equals total cost. The <strong>balance sheet formula</strong> is Assets = Liabilities + Owner's Equity.
+  </div>
+</div>
+
+<!-- ==================== SECTION 6 — LEGAL & ETHICS ==================== -->
+<div id="panel-legal" class="section-panel">
+  <div class="section-header">
+    <div class="section-icon">&#9878;&#65039;</div>
+    <div>
+      <h2>Legal &amp; Ethical Standards</h2>
+      <p>Business registration, permits, contracts, food safety regulations, environmental laws, labor standards, and ethical practices in agriculture.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Business Registration &amp; Permits</div>
+  <ol class="steps-list">
+    <li><span class="step-num">1</span><div><strong>Business Name Registration</strong> — Register with DTI (sole proprietorship) or SEC (corporation/partnership). Ensures legal identity and exclusive use of the business name.</div></li>
+    <li><span class="step-num">2</span><div><strong>Barangay Clearance</strong> — Obtain from the local barangay where the business operates. Confirms the business complies with local regulations.</div></li>
+    <li><span class="step-num">3</span><div><strong>Mayor's Permit / Business License</strong> — Secure from the municipal/city hall. Requires fire safety inspection, sanitary permit, and zoning clearance. Must be renewed annually.</div></li>
+    <li><span class="step-num">4</span><div><strong>BIR Registration</strong> — Register with the Bureau of Internal Revenue for tax identification (TIN), official receipts, and compliance with tax obligations.</div></li>
+    <li><span class="step-num">5</span><div><strong>Special Permits</strong> — DA accreditation for seed dealers, BFAD/FDA registration for processed foods, DENR permits for forestry/aquaculture, and organic certification for organic products.</div></li>
+  </ol>
+
+  <div class="block-heading">Contracts in Agriculture</div>
+  <div class="content-block">
+    <strong>Contract Farming:</strong> An agreement between a farmer and a buyer (processor, exporter, or retailer) specifying production conditions, quality standards, pricing, and delivery terms. Reduces market risk for farmers and ensures supply reliability for buyers.
+  </div>
+  <div class="content-block">
+    <strong>Essential Elements:</strong> A valid contract requires: (1) offer and acceptance, (2) consideration (payment or exchange of value), (3) capacity of parties (legal age and sound mind), (4) lawful purpose, and (5) consent without force, fraud, or mistake.
+  </div>
+
+  <div class="block-heading">Food Safety &amp; Quality Regulations</div>
+  <div class="card-grid">
+    <div class="term-card">
+      <h4>Good Agricultural Practices (GAP)</h4>
+      <p>Internationally recognized standards for on-farm production covering food safety, environmental protection, and worker welfare. Includes water quality testing, proper pesticide use, and sanitation protocols.</p>
+    </div>
+    <div class="term-card">
+      <h4>HACCP Principles</h4>
+      <p>Hazard Analysis Critical Control Points — systematic approach to identify, evaluate, and control food safety hazards. Seven principles from hazard analysis to record-keeping.</p>
+    </div>
+    <div class="term-card">
+      <h4>Organic Certification</h4>
+      <p>Verification by an accredited body that products are produced without synthetic chemicals, GMOs, or prohibited substances. Requires transition period (usually 2-3 years) and annual inspections.</p>
+    </div>
+    <div class="term-card">
+      <h4>Labeling Laws</strong></h4>
+      <p>Regulations requiring accurate product information: common name, net quantity, ingredients, manufacturer details, country of origin, and allergen warnings. Mislabeling is subject to penalties.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Environmental &amp; Labor Laws</div>
+  <div class="content-block">
+    <strong>Environmental Compliance:</strong> RA 9003 (Ecological Solid Waste Management Act), RA 9275 (Clean Water Act), and RA 8749 (Clean Air Act). Farmers must manage waste properly, avoid water contamination from agricultural runoff, and follow restrictions on burning.
+  </div>
+  <div class="content-block">
+    <strong>Labor Standards:</strong> RA 6727 (Wage Rationalization Act), RA 9231 (Anti-Child Labor Law), and Occupational Safety and Health Standards (OSHS). Agricultural employers must provide fair wages, rest periods, protective equipment, safe working conditions, and prohibit hazardous work for minors.
+  </div>
+
+  <div class="block-heading">Ethical Practices</div>
+  <div class="content-block">
+    <strong>Fair Trade:</strong> Trading partnership that ensures producers receive fair prices, have decent working conditions, and use environmentally sustainable practices. Fairtrade certification adds market credibility.
+  </div>
+  <div class="content-block">
+    <strong>Transparency:</strong> Honest representation of product origin, production methods, and quality. Avoid deceptive marketing, adulteration, or misrepresentation of organic/conventional status.
+  </div>
+
+  <div class="exam-tip">
+    <span class="tip-label">&#9889; Remember for the Exam</span>
+    <strong>GAP</strong> = Good Agricultural Practices. A valid contract needs 5 elements: offer/acceptance, consideration, capacity, lawful purpose, and consent. The <strong>FDA (Food and Drug Administration)</strong> regulates processed food safety in the Philippines. <strong>DTI</strong> handles business name registration for sole proprietorships.
+  </div>
+</div>
+
+<!-- ==================== SECTION 7 — WORKPLACE SKILLS ==================== -->
+<div id="panel-workplace" class="section-panel">
+  <div class="section-header">
+    <div class="section-icon">&#127941;</div>
+    <div>
+      <h2>Workplace Competencies</h2>
+      <p>Communication, teamwork, problem-solving, OSH practices, sustainable workplace habits, and entrepreneurial skills for agricultural workers.</p>
+    </div>
+  </div>
+
+  <div class="subsection">Module 1: Participate in Workplace Communications</div>
+  <div class="content-block">
+    <strong>Modes of Communication:</strong> <em>Verbal</em> (face-to-face, phone calls, meetings), <em>Nonverbal</em> (body language, facial expressions, gestures), <em>Written</em> (memos, reports, emails, letters), and <em>Visual</em> (charts, posters, infographics, photographs).
+  </div>
+  <div class="content-block">
+    <strong>Receiving Information Effectively:</strong> Repeat back for clarification; ask open-ended questions; use active listening; verify source validity; check that information is fact-based, not biased; ensure information is current; take notes for future reference.
+  </div>
+  <div class="content-block">
+    <strong>Conveying Information Effectively:</strong> Know your audience; choose appropriate medium; use clear body language; be confident and clear; keep messages simple; proofread written materials; use active listening to confirm understanding; show empathy and respect.
+  </div>
+  <div class="content-block">
+    <strong>Workplace Documents:</strong> Memos (internal communication), Business Letters (external formal communication), Minutes (meeting records), Reports (status/progress documentation), Work Orders (task instructions), and Inventories (stock records).
+  </div>
+
+  <div class="subsection">Module 2: Work in a Team Environment</div>
+  <div class="content-block">
+    <strong>SMART Goals:</strong> Goals should be <strong>S</strong>pecific (clearly defined), <strong>M</strong>easurable (quantifiable), <strong>A</strong>chievable (realistic), <strong>R</strong>elevant (aligned with objectives), and <strong>T</strong>ime-bound (deadline set).
+  </div>
+  <div class="content-block">
+    <strong>Stages of Group Development:</strong> (1) <strong>Forming</strong> — team meets, roles unclear; (2) <strong>Storming</strong> — conflicts arise as members assert opinions; (3) <strong>Norming</strong> — consensus develops, cooperation improves; (4) <strong>Performing</strong> — team functions effectively toward goals; (5) <strong>Adjourning</strong> — task completed, team disbands.
+  </div>
+  <div class="content-block">
+    <strong>Team Decision-Making Process:</strong> Define the problem or decision needed; gather relevant information; brainstorm alternative solutions; evaluate options against criteria; select the best option; assign responsibilities for implementation; monitor results and adjust as needed.
+  </div>
+
+  <div class="subsection">Module 3: Solve &amp; Address Workplace Problems</div>
+  <div class="content-block">
+    <strong>Problem-Solving Steps:</strong> (1) Define the problem and develop a problem statement; (2) Identify root causes (not just symptoms); (3) Brainstorm potential solutions; (4) Evaluate solutions based on feasibility, cost, and impact; (5) Select and recommend the best solution; (6) Develop an implementation plan; (7) Execute and monitor results; (8) Document the problem and solution for future reference.
+  </div>
+
+  <div class="subsection">Module 7: Occupational Safety &amp; Health (OSH)</div>
+  <div class="content-block">
+    <strong>OSH Principles:</strong> All workers have a right to a safe workplace. Employers must provide training, protective equipment, and hazard communication. Workers must follow safety procedures and report hazards immediately.
+  </div>
+  <div class="content-block">
+    <strong>Common Farm Hazards:</strong> Chemical exposure (pesticides, fertilizers), machinery accidents, falls from heights, heat stress, animal bites/kicks, biological hazards (bacteria, fungi), and ergonomic injuries from repetitive tasks or heavy lifting.
+  </div>
+  <div class="content-block">
+    <strong>PPE (Personal Protective Equipment):</strong> Safety helmet/hard hat, safety goggles/face shield, respirator/mask, chemical-resistant gloves, safety boots, apron/coveralls, and ear protection. Always inspect PPE before use and replace damaged equipment.
+  </div>
+  <div class="content-block">
+    <strong>First Aid Basics:</strong> For cuts — clean, apply pressure, bandage; for chemical exposure — flush with water for 15+ minutes; for heat exhaustion — move to shade, give fluids, cool body; for fractures — immobilize, do not move; for snake bites — keep calm, immobilize limb, seek medical help immediately.
+  </div>
+
+  <div class="subsection">Module 9: Entrepreneurial Skills</div>
+  <div class="content-block">
+    <strong>Key Entrepreneurial Traits:</strong> Initiative and proactiveness; risk-taking ability; creativity and innovation; persistence and resilience; goal orientation; opportunity-seeking behavior; commitment to quality; and customer focus.
+  </div>
+  <div class="content-block">
+    <strong>Mindset Shifts:</strong> From "employee" to "owner" thinking — take ownership of outcomes; from "fixed" to "growth" mindset — see challenges as learning opportunities; from "short-term" to "long-term" vision — invest in sustainable practices; from "competition" to "collaboration" — build partnerships and networks.
+  </div>
+
+  <div class="subsection">Common Competency: Apply Safety Measures in Farm Operations</div>
+  <div class="content-block">
+    <strong>LO1 — Determine Areas of Concern:</strong> Identify work tasks in line with farm operations; determine the place for safety measures; determine timing; prepare appropriate tools, materials, and outfits for the job.
+  </div>
+  <div class="content-block">
+    <strong>LO2 — Apply Appropriate Safety Measures:</strong> Use tools and materials according to specifications; wear outfits per farm requirements; observe shelf life and expiration of materials; know and follow emergency procedures; identify and report workplace hazards.
+  </div>
+  <div class="content-block">
+    <strong>LO3 — Safekeep &amp; Dispose:</strong> Clean used tools and store in designated areas; label and store unused materials per manufacturer's recommendations; dispose waste materials according to government and farm requirements.
+  </div>
+
+  <div class="exam-tip">
+    <span class="tip-label">&#9889; Remember for the Exam</span>
+    <strong>SMART</strong> = Specific, Measurable, Achievable, Relevant, Time-bound. Group development has <strong>5 stages</strong>: Forming, Storming, Norming, Performing, Adjourning. <strong>PPE</strong> must be inspected before each use and replaced if damaged. The <strong>3 steps</strong> in farm safety are: determine areas of concern, apply safety measures, and safekeep/dispose tools.
+  </div>
+</div>
+
+<!-- ==================== SECTION 8 — ORAL Q&A ==================== -->
+<div id="panel-oral" class="section-panel">
+  <div class="section-header">
+    <div class="section-icon">&#128483;&#65039;</div>
+    <div>
+      <h2>Oral Questioning Review</h2>
+      <p>50 potential oral examination questions with model answers covering all competency areas. Click each question to reveal the answer.</p>
+    </div>
+  </div>
+
+  <div class="quiz-meta" style="margin-bottom:24px;">
+    <span style="font-size:13px; color:var(--sage);">Competency-based oral questioning preparation for TESDA assessors.</span>
+    <span class="quiz-counter">50 Questions</span>
+  </div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q1</span><span>What is agro-entrepreneurship and how does it differ from traditional farming?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Agro-entrepreneurship is the application of entrepreneurial principles — innovation, risk-taking, and business management — to agricultural enterprises. Unlike traditional farming which often focuses on subsistence production, agro-entrepreneurship emphasizes <strong>market orientation, technological innovation, value-adding, and profit-driven growth</strong> while maintaining sustainable practices.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q2</span><span>What is the primary goal of agro-entrepreneurship?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">The primary goal is to ensure <strong>sustainable practices</strong> — balancing economic viability, ecological responsibility, and social equity. It is not merely profit maximization but long-term viability that preserves resources for future generations.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q3</span><span>How does agro-entrepreneurship contribute to rural development?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">It contributes through <strong>job creation, income generation, community engagement, and reducing urban migration</strong>. By making rural livelihoods economically viable, agro-entrepreneurship strengthens local economies, improves food security, and addresses SDG 1 (No Poverty) and SDG 2 (Zero Hunger).</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q4</span><span>What role does creativity play in agro-entrepreneurship?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Creativity is essential for <strong>innovation and problem-solving</strong>. It enables development of new value-added products, efficient production methods, innovative marketing strategies, and solutions to resource constraints and market challenges.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q5</span><span>Explain sustainable agriculture and give three examples of sustainable practices.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Sustainable agriculture minimizes environmental impact while ensuring long-term productivity. Three examples: <strong>(1) Crop rotation</strong> to maintain soil fertility and break pest cycles; <strong>(2) Integrated Pest Management (IPM)</strong> combining biological, cultural, and minimal chemical controls; <strong>(3) Organic farming</strong> using compost, natural fertilizers, and biological pest control without synthetic chemicals.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q6</span><span>What is a value chain and why is it important for agro-entrepreneurs?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">A value chain is the full range of activities from input supply through production, processing, marketing, and distribution to the final consumer. Understanding it helps agro-entrepreneurs identify <strong>where value is added, where profit margins are highest, inefficiencies to address, and partnership opportunities</strong> in the chain.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q7</span><span>Describe the steps in assessing market opportunities.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">The steps are: <strong>(1)</strong> Identify market needs through observation and surveys; <strong>(2)</strong> Conduct market research on competitors and trends; <strong>(3)</strong> Analyze the value chain; <strong>(4)</strong> Perform SWOT analysis; <strong>(5)</strong> Select target market segment; <strong>(6)</strong> Develop a marketing strategy.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q8</span><span>What is SWOT analysis and how is it used in farm business planning?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">SWOT analysis evaluates <strong>internal Strengths and Weaknesses</strong> (controllable factors like resources, skills, land quality) and <strong>external Opportunities and Threats</strong> (market trends, climate, competition, policy). It guides strategic decisions by matching strengths to opportunities and addressing weaknesses that threaten success.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q9</span><span>What are the essential components of a farm business plan?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Essential components include: <strong>(1) Executive Summary</strong> (overview written last, placed first); <strong>(2) Market Analysis</strong> (industry, customers, competitors); <strong>(3) Production/Operations Plan</strong> (activities, inputs, timeline); <strong>(4) Financial Projections</strong> (budgets, cash flow, break-even analysis); and <strong>(5) Marketing Strategy</strong> (4 Ps: Product, Price, Place, Promotion).</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q10</span><span>What factors should be considered when selecting crops or livestock?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Key factors: <strong>Market demand</strong> (what consumers want), <strong>Climate suitability</strong> (rainfall, temperature), <strong>Soil conditions</strong> (pH, fertility, drainage), <strong>Water availability</strong>, <strong>Technical expertise</strong> (farmer's knowledge), <strong>Input availability</strong> (seeds, fertilizers), and <strong>Profitability potential</strong> (cost vs. expected returns).</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q11</span><span>Explain crop rotation and its benefits.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Crop rotation is the systematic alternation of crops in a specific sequence. Benefits include: <strong>maintained soil fertility</strong> (different crops use different nutrients), <strong>reduced pest/disease pressure</strong> (breaks cycles), <strong>improved soil structure</strong>, <strong>reduced erosion</strong>, and <strong>increased biodiversity</strong>.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q12</span><span>What is Integrated Pest Management (IPM)?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">IPM is an ecological approach to pest control that combines multiple strategies: <strong>biological controls</strong> (natural predators, parasites), <strong>resistant crop varieties</strong>, <strong>cultural practices</strong> (crop rotation, sanitation), <strong>mechanical/physical controls</strong> (traps, barriers), and <strong>judicious chemical use</strong> only when necessary and at minimal effective doses.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q13</span><span>Why is post-harvest handling important and what are best practices?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Post-harvest handling prevents quality loss and reduces spoilage — up to 30-40% of produce is lost in developing countries. Best practices: <strong>harvest at proper maturity</strong>, avoid bruising, <strong>pre-cool immediately</strong>, maintain cold chain, sort/grade by quality, use appropriate packaging, and store in ventilated, pest-free conditions.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q14</span><span>Explain the 4 P's of marketing as applied to agricultural products.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>Product</strong> — quality, variety, packaging, grading; <strong>Price</strong> — based on cost, competition, demand, and positioning; <strong>Place</strong> — distribution channels (direct, wholesale, retail, export); <strong>Promotion</strong> — advertising, social media, demos, trade fairs to inform and persuade customers.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q15</span><span>What is value-adding in agriculture? Give two examples.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Value-adding is processing, transforming, or packaging raw agricultural products to increase market value. Examples: <strong>fresh fruits processed into jams, dried fruit snacks, or juices</strong>; <strong>fresh milk transformed into cheese, yogurt, or ice cream</strong>. Value-adding captures a larger share of the consumer peso and reduces exposure to commodity price volatility.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q16</span><span>Describe the different marketing channels for farm produce.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>Direct marketing</strong> (farm gate, farmers' markets, CSA, online) — highest margins but most effort. <strong>Wholesale</strong> (traders, institutional buyers) — lower prices but larger volume. <strong>Retail</strong> (supermarkets, groceries) — requires consistency and packaging standards. <strong>Processing</strong> (bulk to food processors). <strong>Export</strong> (international markets requiring certifications).</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q17</span><span>What is the purpose of farm record-keeping? Name three types of farm records.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Farm records support decision-making, track profitability, ensure tax compliance, and provide documentation for loans. Three types: <strong>(1) Production records</strong> (planting dates, yields, inputs), <strong>(2) Financial records</strong> (income, expenses, receipts), <strong>(3) Inventory records</strong> (stock levels of inputs and produce).</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q18</span><span>Explain the three main financial statements used in farm business.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>Cash Flow Statement</strong> — tracks cash inflows and outflows over time for liquidity management. <strong>Income Statement (P&amp;L)</strong> — shows revenues minus costs to calculate net profit/loss. <strong>Balance Sheet</strong> — snapshot of assets, liabilities, and owner's equity at a point in time (Assets = Liabilities + Equity).</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q19</span><span>What is break-even analysis and why is it important?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Break-even analysis determines the production volume or price at which <strong>total revenue equals total cost</strong> (fixed + variable). It identifies the minimum sales needed to avoid losses. Below break-even, the farm loses money; above it, profit is earned. Essential for pricing decisions and production planning.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q20</span><span>Describe the 5 Cs of credit that lenders evaluate.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>Character</strong> — borrower's credit history and trustworthiness. <strong>Capacity</strong> — ability to repay based on income/cash flow. <strong>Capital</strong> — owner's equity and financial stake. <strong>Collateral</strong> — assets pledged as security. <strong>Conditions</strong> — economic climate, industry outlook, and loan purpose.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q21</span><span>What business registrations and permits are required to start an agri-business in the Philippines?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Key requirements: <strong>DTI business name registration</strong> (sole prop) or SEC registration (corporation); <strong>Barangay clearance</strong>; <strong>Mayor's Permit/Business License</strong> (requires fire safety, sanitary, zoning clearances); <strong>BIR registration</strong> for TIN and official receipts. Special permits may include DA accreditation, FDA registration for processed foods, and organic certification.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q22</span><span>What is contract farming and what are its advantages?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Contract farming is an agreement between farmer and buyer specifying production conditions, quality, pricing, and delivery. Advantages: <strong>reduced market risk</strong> (guaranteed buyer), <strong>access to inputs/technical assistance</strong>, <strong>price certainty</strong>, and <strong>stable income</strong>. Buyers benefit from reliable supply and quality control.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q23</span><span>What are Good Agricultural Practices (GAP)?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">GAP is an internationally recognized standard covering <strong>food safety, environmental protection, and worker welfare</strong> in farm operations. It includes water quality testing, proper pesticide application, worker hygiene, sanitation protocols, traceability systems, and documentation — ensuring produce is safe for consumption and sustainably produced.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q24</span><span>What is the importance of food labeling?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Labeling ensures <strong>consumer protection, traceability, and market access</strong>. Required information: product name, net weight, ingredients, manufacturer details, production/expiry dates, storage instructions, and allergen warnings. Accurate labeling builds consumer trust and is legally required by the FDA.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q25</span><span>Explain RA 9003 and its relevance to farm operations.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">RA 9003 is the <strong>Ecological Solid Waste Management Act</strong>. It requires proper segregation, collection, transport, and disposal of waste. For farms: compost organic waste, recycle plastic containers, dispose of chemical containers through accredited facilities, and avoid burning agricultural residues which contributes to air pollution.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q26</span><span>What labor laws apply to agricultural workers in the Philippines?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Key laws: <strong>RA 6727</strong> (Wage Rationalization — minimum wage compliance); <strong>RA 9231</strong> (Anti-Child Labor — no hazardous work for minors); <strong>OSHS</strong> (Occupational Safety and Health Standards — safe working conditions, PPE, training); and general labor code provisions on working hours, rest days, and holiday pay.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q27</span><span>Describe the four modes of communication in the workplace.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>Verbal</strong> — spoken communication (face-to-face, phone, meetings). <strong>Nonverbal</strong> — body language, facial expressions, gestures conveying meaning without words. <strong>Written</strong> — memos, emails, reports, letters. <strong>Visual</strong> — charts, posters, photographs, infographics used to convey information graphically.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q28</span><span>What are effective strategies for receiving information?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Effective strategies: <strong>repeat back</strong> for clarification; <strong>ask open-ended questions</strong>; use <strong>active listening</strong>; verify the <strong>source validity</strong>; check information is <strong>fact-based</strong> not biased; ensure information is <strong>current</strong>; and <strong>take notes</strong> for future reference.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q29</span><span>What does SMART stand for in goal-setting?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>S</strong>pecific — clearly defined goal. <strong>M</strong>easurable — quantifiable targets. <strong>A</strong>chievable — realistic given resources. <strong>R</strong>elevant — aligned with broader objectives. <strong>T</strong>ime-bound — has a deadline. SMART goals improve clarity, motivation, and accountability in team and individual work.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q30</span><span>Describe the five stages of group development.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>1. Forming</strong> — team meets, roles unclear, polite but uncertain. <strong>2. Storming</strong> — conflicts arise, members assert opinions. <strong>3. Norming</strong> — consensus develops, cooperation improves. <strong>4. Performing</strong> — team works effectively toward goals. <strong>5. Adjourning</strong> — task completed, team disbands, lessons documented.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q31</span><span>What are the steps in a team decision-making process?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>(1)</strong> Define the problem/decision needed; <strong>(2)</strong> Gather relevant information; <strong>(3)</strong> Brainstorm alternative solutions; <strong>(4)</strong> Evaluate options against criteria; <strong>(5)</strong> Select the best option by consensus or vote; <strong>(6)</strong> Assign responsibilities for implementation; <strong>(7)</strong> Monitor results and adjust as needed.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q32</span><span>What are the steps in solving workplace problems?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>(1)</strong> Define the problem clearly; <strong>(2)</strong> Identify root causes (not symptoms); <strong>(3)</strong> Brainstorm potential solutions; <strong>(4)</strong> Evaluate each solution's feasibility, cost, and impact; <strong>(5)</strong> Select and recommend the best; <strong>(6)</strong> Create an implementation plan; <strong>(7)</strong> Execute and monitor; <strong>(8)</strong> Document for future reference.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q33</span><span>What is the importance of Occupational Safety and Health (OSH) in farm work?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">OSH protects workers from injury, illness, and death. Agriculture is one of the most hazardous industries due to machinery, chemicals, and physical labor. OSH compliance reduces accidents, medical costs, and legal liability; improves worker morale and productivity; and is required by law under OSHS regulations.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q34</span><span>Identify five common farm hazards and their controls.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>1.</strong> Chemical exposure — use PPE (gloves, mask), follow label instructions, store properly. <strong>2.</strong> Machinery accidents — train operators, use guards, turn off before maintenance. <strong>3.</strong> Heat stress — work in cooler hours, drink water, rest in shade. <strong>4.</strong> Falls — use ladders safely, secure elevated platforms. <strong>5.</strong> Animal injuries — approach calmly, use proper handling facilities.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q35</span><span>What is Personal Protective Equipment (PPE) and when should it be used?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">PPE is equipment worn to minimize exposure to workplace hazards. Farm PPE includes: safety helmet, goggles/face shield, respirator/mask, chemical-resistant gloves, safety boots, apron/coveralls, and ear protection. It must be <strong>worn whenever hazards are present</strong>, inspected before use, maintained properly, and replaced if damaged.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q36</span><span>What are the key traits of a successful entrepreneur?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Key traits: <strong>initiative and proactiveness</strong>; <strong>willingness to take calculated risks</strong>; <strong>creativity and innovation</strong>; <strong>persistence and resilience</strong> (not giving up after failure); <strong>goal orientation</strong>; <strong>opportunity-seeking behavior</strong>; <strong>commitment to quality</strong>; and <strong>strong customer focus</strong>.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q37</span><span>Explain the difference between fixed costs and variable costs.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>Fixed costs</strong> do not change with production volume — land rent, insurance, equipment depreciation, permanent labor salaries, property taxes. <strong>Variable costs</strong> change with production level — seeds, fertilizers, pesticides, seasonal labor, fuel, packaging, transportation. Total Cost = Fixed Costs + Variable Costs.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q38</span><span>What pricing methods can agro-entrepreneurs use?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>Cost-plus pricing</strong> — add margin to production cost; simple but ignores demand. <strong>Market-based pricing</strong> — set based on prevailing rates; common for commodities. <strong>Value-based pricing</strong> — set based on perceived customer value (organic, local, premium) allowing higher prices.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q39</span><span>Describe the three learning outcomes for "Apply Safety Measures in Farm Operations."</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>LO1 — Determine Areas of Concern:</strong> Identify work tasks, determine place and time for safety measures, prepare tools/materials/outfits. <strong>LO2 — Apply Appropriate Safety Measures:</strong> Use tools per specifications, wear required outfits, observe expiration dates, know emergency procedures, report hazards. <strong>LO3 — Safekeep and Dispose:</strong> Clean and store tools properly, label unused materials, dispose waste per regulations.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q40</span><span>What is the importance of sustainable practices in the workplace?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Sustainable practices: <strong>reduce environmental impact</strong> (less waste, lower emissions); <strong>conserve resources</strong> (water, energy, materials) reducing costs; <strong>ensure regulatory compliance</strong>; <strong>improve brand reputation</strong> and market access; <strong>protect worker health</strong> through reduced chemical exposure; and <strong>ensure long-term business viability</strong> by preserving natural resources.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q41</span><span>How do you determine areas of concern for safety measures on a farm?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Steps: <strong>(1)</strong> Identify all work tasks performed in line with farm operations; <strong>(2)</strong> Determine the specific location where each task is performed and where hazards exist; <strong>(3)</strong> Determine timing — when hazards are most likely (seasonal, daily cycles); <strong>(4)</strong> Prepare appropriate tools, materials, and protective outfits needed for safe task execution.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q42</span><span>What should be done with expired or unused agricultural chemicals?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Expired/unused chemicals must <strong>never be poured down drains, onto soil, or into waterways</strong>. They should be: stored securely in original labeled containers away from people/animals; reported to farm management; and disposed through <strong>accredited hazardous waste disposal facilities</strong> per DENR and manufacturer guidelines. Partially used chemicals should be properly labeled and stored for future use.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q43</span><span>Explain the importance of quality customer service in agribusiness.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Quality customer service builds <strong>loyalty, repeat business, and positive word-of-mouth</strong>. Key practices: greet customers warmly; listen to their needs; provide accurate product information; handle complaints professionally; deliver on promises; maintain consistent product quality; follow up for feedback; and continuously improve based on customer input.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q44</span><span>What is organic certification and what does it require?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Organic certification verifies products are produced <strong>without synthetic fertilizers, pesticides, or GMOs</strong>. Requirements: a <strong>transition period</strong> (typically 2-3 years) where land is managed organically; complete documentation of all inputs and practices; annual third-party inspections; and compliance with national organic standards (e.g., PNS/BFAD organic regulations).</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q45</span><span>Describe water conservation methods in farm operations.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Methods: <strong>drip irrigation</strong> — delivers water directly to roots, reducing waste; <strong>rainwater harvesting</strong> — collecting and storing runoff; <strong>mulching</strong> — reduces evaporation from soil surface; <strong>contour farming</strong> — follows land contours to reduce runoff; <strong>scheduling irrigation</strong> — applying water based on crop needs and soil moisture, not fixed schedules.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q46</span><span>What is composting and how does it benefit farm operations?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Composting is the controlled decomposition of organic materials (crop residues, manure, food waste) into nutrient-rich humus. Benefits: <strong>reduces waste disposal</strong>; <strong>improves soil structure and fertility</strong>; <strong>reduces need for chemical fertilizers</strong>; <strong>enhances water retention</strong>; <strong>suppresses soil-borne diseases</strong>; and <strong>supports beneficial soil microorganisms</strong>.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q47</span><span>How can agro-entrepreneurs access capital for their business?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Sources: <strong>personal savings</strong> and family loans; <strong>bank loans</strong> (Land Bank, rural banks); <strong>government programs</strong> (DA, SBC, DSWD livelihood programs); <strong>agricultural cooperatives</strong>; <strong>microfinance institutions</strong> (CARD, ASA); <strong>venture capital</strong> for innovative agri-startups; and <strong>crowdfunding platforms</strong>. Each source has different requirements, interest rates, and repayment terms.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q48</span><span>What is the difference between organic and conventional farming?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>Organic farming</strong> prohibits synthetic fertilizers, pesticides, GMOs, and growth hormones. It uses compost, biological pest control, crop rotation, and natural amendments. <strong>Conventional farming</strong> may use synthetic inputs and GMOs for higher yields and pest control. Organic products typically command premium prices but require certification and have lower yields during transition.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q49</span><span>Explain the importance of traceability in agricultural marketing.</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner">Traceability is the ability to track a product's journey from farm to consumer. Importance: <strong>food safety</strong> — rapid recall of contaminated products; <strong>quality assurance</strong> — verifies production standards; <strong>market access</strong> — required by many buyers and export markets; <strong>consumer trust</strong> — transparency about origin and methods; and <strong>premium pricing</strong> — specialty products command higher prices.</div></div></div>
+
+  <div class="oral-q"><button class="oral-q-trigger" onclick="this.parentElement.classList.toggle('open')"><span class="q-num">Q50</span><span>What are the environmental laws that agricultural operations must comply with?</span><span class="chevron">&#9662;</span></button><div class="oral-q-answer"><div class="oral-q-answer-inner"><strong>RA 9003</strong> — Ecological Solid Waste Management Act (proper waste disposal, no open burning). <strong>RA 9275</strong> — Clean Water Act (prevent water pollution from agricultural runoff). <strong>RA 8749</strong> — Clean Air Act (restrictions on burning, dust control). Compliance protects the environment, avoids penalties, and maintains community relations and market access.</div></div></div>
+</div>
+
+<!-- ==================== SECTION 9 — 100-ITEM PRACTICE QUIZ ==================== -->
+<div id="panel-quiz" class="section-panel">
+  <div class="section-header">
+    <div class="section-icon">&#9999;&#65039;</div>
+    <div>
+      <h2>Comprehensive Practice Quiz</h2>
+      <p>100-item multiple choice test covering all Basic, Common, and Core competencies. Answer key with explanations included.</p>
+    </div>
+  </div>
+
+  <div class="quiz-meta">
+    <button class="btn btn-outline" onclick="restartQuiz()">&#8635; Restart</button>
+    <span class="quiz-counter" id="quizCounter">Question 1 of 100</span>
+  </div>
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgress" style="width:1%"></div></div>
+
+  <div id="quizContainer"></div>
+
+  <div class="score-display" id="scoreDisplay">
+    <div class="score-big" id="scoreBig">0</div>
+    <div class="score-label">out of 100</div>
+    <div class="score-grade" id="scoreGrade"></div>
+    <p style="font-size:13px; color:var(--cream); margin-bottom:14px;" id="scoreMessage"></p>
+    <button class="btn" onclick="restartQuiz()">Retake Quiz</button>
+  </div>
+
+  <div class="quiz-nav">
+    <button class="btn btn-outline" id="prevBtn" onclick="prevQ()" disabled>&#8592; Prev</button>
+    <button class="btn" id="nextBtn" onclick="nextQ()">Next &rarr;</button>
+  </div>
+</div>
+
+<!-- ==================== SECTION 10 — EVIDENCE PLAN ==================== -->
+<div id="panel-evidence" class="section-panel">
+  <div class="section-header">
+    <div class="section-icon">&#128203;</div>
+    <div>
+      <h2>Evidence Plan &amp; Table of Specifications</h2>
+      <p>Assessment methods, evidence requirements, and the cognitive distribution for the TESDA NC II competency examination.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Assessment Methods</div>
+  <div class="card-grid">
+    <div class="term-card">
+      <h4>Written Test</h4>
+      <p>Multiple-choice and short-answer questions assessing knowledge of concepts, principles, and procedures. Covers all learning outcomes across basic, common, and core competencies.</p>
+    </div>
+    <div class="term-card">
+      <h4>Practical/Demonstration</h4>
+      <p>Hands-on performance of tasks: applying safety measures, preparing farm tools, conducting market analysis, preparing financial records, and demonstrating proper communication.</p>
+    </div>
+    <div class="term-card">
+      <h4>Oral Questioning</h4>
+      <p>Structured interview assessing understanding of concepts, problem-solving ability, and capacity to explain decisions. Uses standardized competency-based question banks.</p>
+    </div>
+    <div class="term-card">
+      <h4>Portfolio/Project</h4>
+      <p>Collection of work outputs: business plan, production schedule, financial statements, market research report, and documented proof of workplace communication.</p>
+    </div>
+  </div>
+
+  <div class="block-heading">Evidence Plan by Competency</div>
+  <div class="evidence-table-wrap">
+    <table class="evidence-table">
+      <thead>
+        <tr><th>Unit of Competency</th><th>Method</th><th>Evidence Required</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="cat-label">Basic</span><br/>Participate in Workplace Communication</td>
+          <td><span class="method-dot"></span>Observation<br/><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Oral</td>
+          <td>Completed workplace documents (memo, letter, minutes); demonstrated active listening; conveyed information clearly to supervisor/peers</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Basic</span><br/>Work in a Team Environment</td>
+          <td><span class="method-dot"></span>Observation<br/><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Portfolio</td>
+          <td>Participated in team goal-setting; contributed to group decisions; demonstrated cooperation and conflict resolution; team output documentation</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Basic</span><br/>Solve Workplace Problems</td>
+          <td><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Observation<br/><span class="method-dot"></span>Portfolio</td>
+          <td>Problem statement documentation; list of identified solutions; chosen solution with justification; implementation plan and results</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Basic</span><br/>Practice OSH Policies</td>
+          <td><span class="method-dot"></span>Observation<br/><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Practical</td>
+          <td>Correct use of PPE; identified and reported hazards; demonstrated emergency procedures; completed incident report form</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Basic</span><br/>Exercise Sustainable Practices</td>
+          <td><span class="method-dot"></span>Observation<br/><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Portfolio</td>
+          <td>Waste segregation and proper disposal; resource conservation practices; documented recycling/composting activities</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Basic</span><br/>Practice Entrepreneurial Skills</td>
+          <td><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Oral<br/><span class="method-dot"></span>Portfolio</td>
+          <td>Business idea presentation; market opportunity analysis; simple business plan; demonstrated initiative and innovation</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Common</span><br/>Apply Safety Measures in Farm Operations</td>
+          <td><span class="method-dot"></span>Practical<br/><span class="method-dot"></span>Observation<br/><span class="method-dot"></span>Written Test</td>
+          <td>Identified safety concerns; wore correct PPE; used tools per specifications; cleaned and stored equipment properly; disposed waste correctly</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Common</span><br/>Perform Estimation and Calculation</td>
+          <td><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Practical</td>
+          <td>Accurate area measurements; correct input quantity calculations; proper dosage calculations; correct cost estimates</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Core</span><br/>Assess Market Opportunities</td>
+          <td><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Portfolio<br/><span class="method-dot"></span>Oral</td>
+          <td>Completed market survey; SWOT analysis document; target market profile; competitor analysis; marketing strategy outline</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Core</span><br/>Establish Farm Production Plan</td>
+          <td><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Portfolio<br/><span class="method-dot"></span>Practical</td>
+          <td>Production calendar/plan; input budget; crop/livestock selection justification; land preparation schedule; yield projections</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Core</span><br/>Handle Finances</td>
+          <td><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Portfolio<br/><span class="method-dot"></span>Practical</td>
+          <td>Cash flow statement; income statement; balance sheet; break-even analysis; budget document with cost classifications</td>
+        </tr>
+        <tr>
+          <td><span class="cat-label">Core</span><br/>Market Produce</td>
+          <td><span class="method-dot"></span>Written Test<br/><span class="method-dot"></span>Portfolio<br/><span class="method-dot"></span>Oral</td>
+          <td>Marketing plan (4 Ps); product label design; pricing justification; distribution channel selection; promotional materials</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="block-heading">Table of Specifications (Quiz Distribution)</div>
+  <div class="tos-table-wrap">
+    <table class="tos-table">
+      <thead>
+        <tr><th>Topic Area</th><th>Remembering</th><th>Understanding</th><th>Applying</th><th>Analyzing</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Basic Concepts &amp; Principles</td><td>3</td><td>3</td><td>2</td><td>2</td><td>10</td></tr>
+        <tr><td>Market Opportunities &amp; Planning</td><td>2</td><td>3</td><td>3</td><td>2</td><td>10</td></tr>
+        <tr><td>Farm Production Planning</td><td>2</td><td>3</td><td>3</td><td>2</td><td>10</td></tr>
+        <tr><td>Marketing &amp; Distribution</td><td>2</td><td>3</td><td>3</td><td>2</td><td>10</td></tr>
+        <tr><td>Financial Management</td><td>2</td><td>3</td><td>3</td><td>2</td><td>10</td></tr>
+        <tr><td>Legal, Ethics &amp; Food Safety</td><td>3</td><td>3</td><td>2</td><td>2</td><td>10</td></tr>
+        <tr><td>Workplace Communication</td><td>2</td><td>2</td><td>1</td><td>0</td><td>5</td></tr>
+        <tr><td>Teamwork &amp; Problem Solving</td><td>1</td><td>2</td><td>1</td><td>1</td><td>5</td></tr>
+        <tr><td>OSH &amp; Farm Safety</td><td>2</td><td>2</td><td>1</td><td>0</td><td>5</td></tr>
+        <tr><td>Sustainable Workplace Practices</td><td>2</td><td>2</td><td>1</td><td>0</td><td>5</td></tr>
+        <tr><td>Entrepreneurial Skills</td><td>2</td><td>2</td><td>1</td><td>0</td><td>5</td></tr>
+        <tr><td>Customer Service &amp; Quality Standards</td><td>2</td><td>2</td><td>1</td><td>0</td><td>5</td></tr>
+        <tr><td>Technology &amp; Innovation in Agri</td><td>2</td><td>2</td><td>1</td><td>0</td><td>5</td></tr>
+        <tr class="total-row"><td><strong>TOTAL (100 items)</strong></td><td><strong>25</strong></td><td><strong>30</strong></td><td><strong>23</strong></td><td><strong>13</strong></td><td><strong>100</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="block-heading">Key Points for Assessment Day</div>
+  <div class="highlight-box">
+    <span class="hb-label">Before the Exam</span>
+    <ul style="padding-left:18px; margin-top:6px; display:flex; flex-direction:column; gap:4px;">
+      <li>Review all learning outcomes across Basic, Common, and Core competencies</li>
+      <li>Practice financial calculations (break-even, ROI, cash flow)</li>
+      <li>Memorize key definitions (agro-entrepreneurship, sustainable agriculture, GAP, IPM, value chain)</li>
+      <li>Study the 4 Ps of marketing, SWOT analysis components, and the 5 Cs of credit</li>
+      <li>Know the stages of group development and steps in problem-solving</li>
+      <li>Understand OSH requirements, PPE types, and farm hazard controls</li>
+      <li>Familiarize yourself with environmental laws (RA 9003, RA 9275, RA 8749)</li>
+      <li>Review business registration requirements and food safety regulations</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box">
+    <span class="hb-label">During the Exam</span>
+    <ul style="padding-left:18px; margin-top:6px; display:flex; flex-direction:column; gap:4px;">
+      <li>Read each question carefully — some items test distinctions (e.g., primary goal is sustainability, not profit)</li>
+      <li>Eliminate obviously wrong options first to improve odds on uncertain questions</li>
+      <li>For scenario-based questions, identify which competency area is being tested</li>
+      <li>Manage your time — don't spend too long on any single question</li>
+      <li>Answer all questions — there is no penalty for wrong answers</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- end .main -->
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+// ---- Tab switching ----
+function switchTab(tabId) {
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tabId).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ---- 100-Item Quiz Data ----
+const quizQuestions = [
+  // === BASIC CONCEPTS (Q1-10) ===
+  { section: "Basic Concepts", question: "What is the primary goal of agro-entrepreneurship?", options: ["Maximizing profit at all costs", "Minimizing production costs", "Ensuring sustainable practices", "Expanding farm size rapidly"], correct: 2, explanation: "The primary goal is ensuring sustainable practices — balancing economic viability, ecological responsibility, and social equity." },
+  { section: "Basic Concepts", question: "Which of the following best describes an agro-entrepreneur?", options: ["A farmer who only grows crops for family consumption", "An individual who combines farming knowledge with business acumen and innovation", "A government agricultural extension worker", "A farm laborer who manages equipment"], correct: 1, explanation: "An agro-entrepreneur combines farming knowledge with business acumen, innovation, and market orientation." },
+  { section: "Basic Concepts", question: "How does agro-entrepreneurship contribute to rural development?", options: ["By promoting urbanization", "Through job creation and income generation", "By replacing traditional farming entirely", "Through industrial manufacturing"], correct: 1, explanation: "It creates jobs, generates income, engages communities, and reduces urban migration by making rural livelihoods viable." },
+  { section: "Basic Concepts", question: "What is sustainable agriculture?", options: ["Farming that maximizes short-term yields", "Practices that minimize environmental impact and ensure long-term soil health", "Agriculture using only manual labor", "Farming that relies solely on chemical inputs"], correct: 1, explanation: "Sustainable agriculture minimizes environmental impact, preserves biodiversity, and ensures long-term soil and ecosystem health." },
+  { section: "Basic Concepts", question: "Which practice is NOT considered sustainable agriculture?", options: ["Crop rotation", "Integrated Pest Management (IPM)", "Heavy reliance on synthetic pesticides without rotation", "Organic composting"], correct: 2, explanation: "Heavy reliance on synthetic pesticides without rotation harms the environment and is not sustainable." },
+  { section: "Basic Concepts", question: "What is a 'value chain' in agriculture?", options: ["The price of a product at retail", "The full range of activities from input supply to final consumer", "A chain used for securing livestock", "The exchange rate for agricultural exports"], correct: 1, explanation: "A value chain covers input supply, production, processing, marketing, and distribution to the consumer." },
+  { section: "Basic Concepts", question: "What is food security?", options: ["Having expensive food products", "All people having access to sufficient, safe, and nutritious food", "Storing large quantities of grain", "Exporting agricultural products"], correct: 1, explanation: "Food security means all people, at all times, have physical, social, and economic access to sufficient, safe, and nutritious food." },
+  { section: "Basic Concepts", question: "Why is creativity important in agro-entrepreneurship?", options: ["It is only needed for product packaging", "It helps solve problems and develop innovative solutions", "It replaces the need for technical knowledge", "It is only useful for marketing"], correct: 1, explanation: "Creativity drives innovation in product development, production efficiency, marketing, and overcoming resource constraints." },
+  { section: "Basic Concepts", question: "Which of the following is a core competency in Agro-Entrepreneurship NC II?", options: ["Performing surgical procedures on livestock", "Assessing market opportunities", "Designing agricultural machinery", "Teaching academic subjects"], correct: 1, explanation: "Core competencies are: Assess Market Opportunities, Establish Farm Production Plan, Handle Finances, and Market Produce." },
+  { section: "Basic Concepts", question: "What percentage of produce can be lost post-harvest in developing countries due to poor handling?", options: ["5-10%", "10-20%", "30-40%", "50-60%"], correct: 2, explanation: "Up to 30-40% of produce can be lost in developing countries due to poor post-harvest handling practices." },
+
+  // === MARKET & PLANNING (Q11-20) ===
+  { section: "Market & Planning", question: "What is the first step in assessing market opportunities?", options: ["Develop a marketing strategy", "Identify market needs", "Set product prices", "Hire sales staff"], correct: 1, explanation: "The first step is identifying market needs through observation, surveys, and understanding consumer demand." },
+  { section: "Market & Planning", question: "What does SWOT analysis evaluate?", options: ["Only internal factors", "Only external factors", "Both internal and external factors", "Financial statements only"], correct: 2, explanation: "SWOT evaluates internal Strengths/Weaknesses and external Opportunities/Threats." },
+  { section: "Market & Planning", question: "In SWOT, which elements are internal factors?", options: ["Opportunities and Threats", "Strengths and Weaknesses", "Opportunities and Strengths", "Threats and Weaknesses"], correct: 1, explanation: "Strengths and Weaknesses are internal factors that the business can control." },
+  { section: "Market & Planning", question: "What is a target market?", options: ["All possible customers everywhere", "A specific customer segment selected for focused marketing efforts", "Only international buyers", "Government procurement agencies"], correct: 1, explanation: "A target market is a specific customer segment chosen based on demographics, purchasing power, and alignment with production capacity." },
+  { section: "Market & Planning", question: "Which is NOT a component of a business plan?", options: ["Executive Summary", "Market Analysis", "Employee Birthday Calendar", "Financial Projections"], correct: 2, explanation: "A business plan includes Executive Summary, Market Analysis, Operations Plan, and Financial Projections — not personal calendars." },
+  { section: "Market & Planning", question: "When should the Executive Summary be written?", options: ["First, before any other section", "Last, after all other sections are complete", "Simultaneously with financial projections", "Only after the business is running"], correct: 1, explanation: "The Executive Summary is written last but placed first, summarizing all other sections." },
+  { section: "Market & Planning", question: "What is market research?", options: ["Guessing what customers want", "Systematic gathering of data about consumers, competitors, and market conditions", "Setting low prices to attract customers", "Advertising on television"], correct: 1, explanation: "Market research systematically gathers data on consumers, competitors, pricing, and trends to inform decisions." },
+  { section: "Market & Planning", question: "Which of the following is an external opportunity for an agro-enterprise?", options: ["Limited capital", "Growing demand for organic products", "Poor road access", "Lack of technical knowledge"], correct: 1, explanation: "Growing demand for organic products is an external market opportunity. Limited capital, poor access, and lack of knowledge are internal weaknesses." },
+  { section: "Market & Planning", question: "What is a competitive advantage?", options: ["Having the lowest prices always", "A unique attribute that sets a business apart from competitors", "Being located near the city", "Having the largest farm"], correct: 1, explanation: "Competitive advantage is a unique attribute — quality, location, certification, innovation — that differentiates the business." },
+  { section: "Market & Planning", question: "What does value chain analysis help identify?", options: ["Only production costs", "Where value is added and profit margins exist", "The weather forecast", "Employee salaries"], correct: 1, explanation: "Value chain analysis identifies value-adding activities, profit margins, inefficiencies, and partnership opportunities." },
+
+  // === PRODUCTION (Q21-30) ===
+  { section: "Production", question: "What is the first step in farm production planning?", options: ["Harvest the crops", "Select crops or livestock based on market demand and climate", "Apply fertilizer", "Sell to the market"], correct: 1, explanation: "Production planning starts with selecting appropriate crops/livestock based on market demand, climate, soil, and resources." },
+  { section: "Production", question: "What is crop rotation?", options: ["Growing the same crop every season", "Systematic alternation of crops in sequence", "Rotating irrigation sprinklers", "Changing the farm location"], correct: 1, explanation: "Crop rotation is systematically alternating crops to maintain soil fertility and break pest/disease cycles." },
+  { section: "Production", question: "What is Integrated Pest Management (IPM)?", options: ["Using only chemical pesticides", "An ecological approach combining biological, cultural, and minimal chemical controls", "Eliminating all insects from the farm", "Planting only pest-resistant GMO crops"], correct: 1, explanation: "IPM combines biological controls, cultural practices, resistant varieties, and judicious chemical use." },
+  { section: "Production", question: "Which of the following is a sustainable production practice?", options: ["Heavy tillage without cover crops", "Conservation tillage", "Monocropping without rotation", "Excessive use of synthetic fertilizers"], correct: 1, explanation: "Conservation tillage minimizes soil disturbance, preserving structure, moisture, and organic matter." },
+  { section: "Production", question: "What is composting?", options: ["Burning crop residues", "Controlled decomposition of organic materials into nutrient-rich humus", "Applying chemical fertilizer", "Digging trenches for drainage"], correct: 1, explanation: "Composting is the controlled decomposition of organic waste into nutrient-rich soil amendment." },
+  { section: "Production", question: "Why is soil testing important before planting?", options: ["It determines the farm's market value", "It identifies pH, nutrient content, and amendment needs", "It is required for tax purposes", "It predicts weather patterns"], correct: 1, explanation: "Soil testing reveals pH, nutrient levels, and deficiencies, guiding amendment and fertilization decisions." },
+  { section: "Production", question: "What is agroforestry?", options: ["Growing only forest trees", "Integration of trees/shrubs with crops or livestock for environmental and economic benefits", "Cutting down trees for farmland", "Planting crops in a forest"], correct: 1, explanation: "Agroforestry integrates trees with crops/livestock for shade, windbreaks, nitrogen fixation, and additional income." },
+  { section: "Production", question: "When should produce ideally be harvested?", options: ["As early as possible", "At optimal maturity for best quality and shelf life", "Only when the price is high", "After all leaves have fallen"], correct: 1, explanation: "Harvesting at optimal maturity ensures best quality, nutritional value, and shelf life." },
+  { section: "Production", question: "What is the purpose of pre-cooling harvested produce?", options: ["To clean the produce", "To quickly remove field heat and slow deterioration", "To make the produce heavier", "To kill pests"], correct: 1, explanation: "Pre-cooling rapidly removes field heat, slowing respiration and extending shelf life." },
+  { section: "Production", question: "Which irrigation method is most water-efficient?", options: ["Flood irrigation", "Sprinkler irrigation", "Drip irrigation", "Furrow irrigation"], correct: 2, explanation: "Drip irrigation delivers water directly to plant roots, minimizing evaporation and runoff." },
+
+  // === MARKETING (Q31-40) ===
+  { section: "Marketing", question: "What are the 4 Ps of marketing?", options: ["People, Process, Product, Price", "Product, Price, Place, Promotion", "Plan, Produce, Package, Promote", "Profit, Product, Process, People"], correct: 1, explanation: "The 4 Ps are Product, Price, Place (distribution), and Promotion." },
+  { section: "Marketing", question: "Which distribution channel typically offers the highest profit margin?", options: ["Wholesale to traders", "Export markets", "Direct marketing to consumers", "Selling to processors"], correct: 2, explanation: "Direct marketing (farm gate, farmers' markets) offers the highest margins but requires the most sales effort." },
+  { section: "Marketing", question: "What is value-adding in agriculture?", options: ["Increasing the weight of produce", "Processing or transforming raw products to increase market value", "Adding water to fresh produce", "Growing more crops per hectare"], correct: 1, explanation: "Value-adding transforms raw commodities into processed products (jams, dried fruit, cheese) to capture higher prices." },
+  { section: "Marketing", question: "Which pricing method is based on production cost plus a desired profit margin?", options: ["Market-based pricing", "Value-based pricing", "Cost-plus pricing", "Loss-leader pricing"], correct: 2, explanation: "Cost-plus pricing calculates total cost and adds a desired profit margin." },
+  { section: "Marketing", question: "What is a brand in agricultural marketing?", options: ["The type of crop grown", "A name or symbol that identifies and differentiates a seller's product", "The price of the product", "The farm's location"], correct: 1, explanation: "A brand is a name, term, design, or symbol that identifies a seller's product and differentiates it from competitors." },
+  { section: "Marketing", question: "Community Supported Agriculture (CSA) is an example of:", options: ["Government subsidy program", "Direct marketing where consumers buy shares of farm harvest", "A type of chemical fertilizer", "An export certification"], correct: 1, explanation: "CSA is a direct marketing model where consumers purchase shares of the farm's harvest in advance." },
+  { section: "Marketing", question: "What information is required on a food product label?", options: ["Only the price", "Product name, net weight, ingredients, manufacturer, expiry date", "Just the farm name", "Only the barcode"], correct: 1, explanation: "Labels must include product name, net weight, ingredients, manufacturer details, production/expiry dates, and storage instructions." },
+  { section: "Marketing", question: "What is market segmentation?", options: ["Dividing a market into distinct groups with similar needs", "Breaking physical market stalls into sections", "Separating good and bad produce", "Dividing profits among partners"], correct: 0, explanation: "Market segmentation divides a broad market into distinct consumer groups with similar characteristics or needs." },
+  { section: "Marketing", question: "Which promotional tool is most cost-effective for small agro-enterprises?", options: ["National TV advertising", "Social media marketing", "Billboard advertisements", "Celebrity endorsements"], correct: 1, explanation: "Social media marketing is low-cost, targeted, and effective for small agro-enterprises to reach local customers." },
+  { section: "Marketing", question: "What does 'place' refer to in the 4 Ps?", options: ["The farm's GPS location", "Distribution channels that get products to consumers", "Where advertisements are placed", "The storage warehouse"], correct: 1, explanation: "'Place' refers to distribution channels — how products move from farm to consumer (direct, wholesale, retail, export)." },
+
+  // === FINANCE (Q41-50) ===
+  { section: "Finance", question: "What is the formula for the balance sheet?", options: ["Revenue - Expenses = Profit", "Assets = Liabilities + Owner's Equity", "Price x Quantity = Revenue", "Fixed Costs + Variable Costs = Total Cost"], correct: 1, explanation: "The balance sheet equation is Assets = Liabilities + Owner's Equity." },
+  { section: "Finance", question: "Which financial statement tracks cash inflows and outflows over time?", options: ["Income Statement", "Balance Sheet", "Cash Flow Statement", "Annual Report"], correct: 2, explanation: "The Cash Flow Statement tracks actual cash movements, critical for managing liquidity." },
+  { section: "Finance", question: "What is break-even analysis?", options: ["Analysis of market competition", "Determining when total revenue equals total cost", "Calculating employee salaries", "Measuring soil pH levels"], correct: 1, explanation: "Break-even analysis finds the production volume or price where total revenue equals total cost." },
+  { section: "Finance", question: "Which of the following is a fixed cost?", options: ["Seeds and fertilizers", "Seasonal labor wages", "Land rent", "Transportation fuel"], correct: 2, explanation: "Land rent is a fixed cost — it does not change with production volume. Seeds, seasonal labor, and fuel are variable costs." },
+  { section: "Finance", question: "What does ROI stand for?", options: ["Rate of Interest", "Return on Investment", "Record of Inventory", "Revenue Operating Income"], correct: 1, explanation: "ROI (Return on Investment) measures the profitability of an investment relative to its cost." },
+  { section: "Finance", question: "What are the 5 Cs of Credit?", options: ["Cash, Credit, Cost, Capital, Collateral", "Character, Capacity, Capital, Collateral, Conditions", "Capital, Cost, Competition, Customers, Climate", "Cash, Cost, Credit, Customers, Competition"], correct: 1, explanation: "The 5 Cs are Character, Capacity, Capital, Collateral, and Conditions — used by lenders to evaluate loan applications." },
+  { section: "Finance", question: "Which of the following is a variable cost?", options: ["Insurance premium", "Property tax", "Pesticides used during the season", "Equipment depreciation"], correct: 2, explanation: "Pesticides are a variable cost — the amount used varies with production level and pest pressure." },
+  { section: "Finance", question: "What is the purpose of an income statement?", options: ["Track cash inflows and outflows", "Show revenues, costs, and net profit/loss over a period", "List all farm equipment", "Record employee attendance"], correct: 1, explanation: "The income statement (P&L) summarizes revenues minus expenses to calculate net profit or loss." },
+  { section: "Finance", question: "Net Income is calculated as:", options: ["Assets - Liabilities", "Revenue - Cost of Goods Sold - Operating Expenses", "Fixed Costs + Variable Costs", "Cash Inflows + Cash Outflows"], correct: 1, explanation: "Net Income = Revenue - Cost of Goods Sold - Operating Expenses." },
+  { section: "Finance", question: "Which government institution commonly provides agricultural loans in the Philippines?", options: ["Bangko Sentral ng Pilipinas", "Land Bank of the Philippines", "Philippine Stock Exchange", "Social Security System"], correct: 1, explanation: "The Land Bank of the Philippines is the primary government institution providing agricultural credit and financing." },
+
+  // === LEGAL & ETHICS (Q51-60) ===
+  { section: "Legal & Ethics", question: "What government agency handles business name registration for sole proprietorships?", options: ["SEC", "DTI", "BIR", "DA"], correct: 1, explanation: "DTI (Department of Trade and Industry) registers business names for sole proprietorships." },
+  { section: "Legal & Ethics", question: "What does RA 9003 regulate?", options: ["Clean water", "Solid waste management", "Air quality", "Labor standards"], correct: 1, explanation: "RA 9003 is the Ecological Solid Waste Management Act, requiring proper waste segregation and disposal." },
+  { section: "Legal & Ethics", question: "Which agency regulates processed food safety in the Philippines?", options: ["DA", "DENR", "FDA (BFAD)", "DOH"], correct: 2, explanation: "The FDA (Food and Drug Administration), formerly BFAD, regulates food safety and registration." },
+  { section: "Legal & Ethics", question: "What is Good Agricultural Practice (GAP)?", options: ["A farming method that uses only manual labor", "Internationally recognized standards for food safety, environmental protection, and worker welfare", "A type of chemical fertilizer", "A government subsidy program"], correct: 1, explanation: "GAP covers food safety, environmental protection, and worker welfare in farm operations." },
+  { section: "Legal & Ethics", question: "What is contract farming?", options: ["Farming without any written agreements", "An agreement between farmer and buyer specifying production conditions, quality, and pricing", "Growing crops only for the government", "A type of insurance for farmers"], correct: 1, explanation: "Contract farming is a pre-agreed arrangement between farmer and buyer that specifies conditions, quality, price, and delivery." },
+  { section: "Legal & Ethics", question: "For a contract to be valid, it must have:", options: ["Only a signature", "Offer, acceptance, consideration, capacity, lawful purpose, and consent", "A lawyer present during signing", "Government approval"], correct: 1, explanation: "A valid contract requires: offer, acceptance, consideration, capacity, lawful purpose, and free consent." },
+  { section: "Legal & Ethics", question: "RA 9275 is also known as:", options: ["Clean Air Act", "Clean Water Act", "Solid Waste Management Act", "Labor Code"], correct: 1, explanation: "RA 9275 is the Clean Water Act, which prohibits water pollution including agricultural runoff." },
+  { section: "Legal & Ethics", question: "What is the minimum age for hazardous work in agriculture under RA 9231?", options: ["12 years old", "15 years old", "18 years old", "21 years old"], correct: 2, explanation: "RA 9231 (Anti-Child Labor Law) prohibits hazardous work for minors under 18 years old." },
+  { section: "Legal & Ethics", question: "What is organic certification?", options: ["A permit to use any type of fertilizer", "Verification that products are produced without synthetic chemicals or GMOs", "A tax exemption for farmers", "A quality grade given by supermarkets"], correct: 1, explanation: "Organic certification verifies production without synthetic fertilizers, pesticides, or GMOs, through annual inspections." },
+  { section: "Legal & Ethics", question: "What is fair trade in agriculture?", options: ["Trading only with neighboring countries", "A trading partnership ensuring fair prices, decent conditions, and environmental sustainability", "Buying products at the lowest price", "Government-regulated pricing"], correct: 1, explanation: "Fair trade ensures producers receive fair prices, have decent working conditions, and use sustainable practices." },
+
+  // === WORKPLACE COMMUNICATION (Q61-65) ===
+  { section: "Workplace Skills", question: "Which of the following is NOT a mode of communication?", options: ["Verbal", "Nonverbal", "Written", "Chemical"], correct: 3, explanation: "The four modes of communication are Verbal, Nonverbal, Written, and Visual. Chemical is not a communication mode." },
+  { section: "Workplace Skills", question: "What is active listening?", options: ["Listening while preparing your response", "Fully concentrating on the speaker, providing feedback, and avoiding distractions", "Hearing without responding", "Taking notes without making eye contact"], correct: 1, explanation: "Active listening involves full concentration, providing feedback, asking clarifying questions, and avoiding distractions." },
+  { section: "Workplace Skills", question: "Which document is used for internal workplace communication?", options: ["Business letter", "Memo", "Tax return", "Bank statement"], correct: 1, explanation: "A memo (memorandum) is used for internal communication within an organization." },
+  { section: "Workplace Skills", question: "When conveying information, why is it important to consider your audience?", options: ["It is not important", "It helps determine the appropriate tone, format, and level of detail", "It makes the message longer", "It ensures you use complex vocabulary"], correct: 1, explanation: "Considering the audience ensures the message is delivered in the most effective tone, format, and detail level." },
+  { section: "Workplace Skills", question: "Why should written communication be proofread before sharing?", options: ["To make it longer", "To catch errors and maintain professionalism", "To add more complex words", "To delay sending"], correct: 1, explanation: "Proofreading catches errors that could make the sender appear unprofessional or cause misunderstandings." },
+
+  // === TEAMWORK & PROBLEM SOLVING (Q66-70) ===
+  { section: "Teamwork & Problem Solving", question: "What does the 'A' in SMART goals stand for?", options: ["Ambitious", "Achievable", "Automatic", "Advanced"], correct: 1, explanation: "SMART: Specific, Measurable, Achievable, Relevant, Time-bound. 'A' stands for Achievable." },
+  { section: "Teamwork & Problem Solving", question: "In which stage of group development do conflicts typically arise?", options: ["Forming", "Storming", "Norming", "Performing"], correct: 1, explanation: "Conflicts arise during the Storming stage as members assert their opinions and vie for position." },
+  { section: "Teamwork & Problem Solving", question: "What is the first step in problem-solving?", options: ["Implement the solution immediately", "Define the problem clearly", "Blame someone for the problem", "Ignore the problem"], correct: 1, explanation: "The first step is clearly defining the problem and distinguishing symptoms from root causes." },
+  { section: "Teamwork & Problem Solving", question: "When should a team document a workplace problem and its solution?", options: ["Never, to save time", "After the solution is implemented, for future reference", "Only if the boss asks", "Only for major problems"], correct: 1, explanation: "Documenting problems and solutions creates institutional knowledge for handling similar issues in the future." },
+  { section: "Teamwork & Problem Solving", question: "During the Norming stage of group development, what typically happens?", options: ["Members argue about roles", "Consensus develops and cooperation improves", "The team disbands", "Members avoid each other"], correct: 1, explanation: "During Norming, team members resolve differences, accept each other, and cooperation improves." },
+
+  // === OSH & FARM SAFETY (Q71-75) ===
+  { section: "OSH & Safety", question: "What does PPE stand for?", options: ["Personal Productivity Equipment", "Personal Protective Equipment", "Public Performance Evaluation", "Professional Practice Exam"], correct: 1, explanation: "PPE stands for Personal Protective Equipment — gear worn to minimize exposure to workplace hazards." },
+  { section: "OSH & Safety", question: "Which of the following is NOT proper PPE for chemical handling?", options: ["Chemical-resistant gloves", "Safety goggles", "Cotton t-shirt", "Respirator/mask"], correct: 2, explanation: "A cotton t-shirt offers no protection against chemical exposure. Proper PPE includes gloves, goggles, respirator, and coveralls." },
+  { section: "OSH & Safety", question: "What should you do first if a chemical pesticide gets in your eye?", options: ["Rub the eye to remove it", "Flush with clean water for at least 15 minutes", "Wait for the pain to subside", "Apply more chemical to dilute it"], correct: 1, explanation: "Immediate flushing with clean water for 15+ minutes is the correct first aid for eye chemical exposure." },
+  { section: "OSH & Safety", question: "How often should PPE be inspected?", options: ["Once a year", "Before each use", "Only when damaged", "Every five years"], correct: 1, explanation: "PPE must be inspected before each use to ensure it is in good condition and will provide adequate protection." },
+  { section: "OSH & Safety", question: "What is the first step in farm safety (LO1)?", options: ["Apply safety measures immediately", "Determine areas of concern for safety measures", "Dispose of all tools", "Hire a safety officer"], correct: 1, explanation: "LO1 is determining areas of concern: identify tasks, places, timing, and required tools/outfits for safety." },
+
+  // === SUSTAINABLE PRACTICES (Q76-80) ===
+  { section: "Sustainable Practices", question: "Which practice reduces water loss through evaporation?", options: ["Flood irrigation", "Mulching", "Overhead sprinklers at noon", "Deep plowing"], correct: 1, explanation: "Mulching covers soil surface, reducing evaporation and maintaining soil moisture." },
+  { section: "Sustainable Practices", question: "How should used farm tools be handled after use?", options: ["Left in the field", "Cleaned and stored in designated areas", "Thrown away", "Buried underground"], correct: 1, explanation: "Used tools should be cleaned, inspected for damage, and stored in designated areas per LO3 of farm safety." },
+  { section: "Sustainable Practices", question: "What should be done with unused chemicals?", options: ["Pour them down the drain", "Properly label and store per manufacturer's recommendations", "Mix them together for later use", "Leave them open to evaporate"], correct: 1, explanation: "Unused chemicals must be properly labeled and stored per manufacturer guidelines to prevent accidents and contamination." },
+  { section: "Sustainable Practices", question: "Which of the following is a method of rainwater harvesting?", options: ["Deep well pumping", "Farm ponds and water tanks", "Buying bottled water", "Using more sprinklers"], correct: 1, explanation: "Farm ponds, water tanks, and contour bunds collect and store rainwater for later irrigation use." },
+  { section: "Sustainable Practices", question: "Why is waste segregation important on farms?", options: ["It is not important", "It enables recycling, composting, and safe disposal of hazardous materials", "It makes the farm look tidy", "It is only required for commercial farms"], correct: 1, explanation: "Segregation separates organic waste (for composting), recyclables, and hazardous materials (for safe disposal)." },
+
+  // === ENTREPRENEURIAL SKILLS (Q81-85) ===
+  { section: "Entrepreneurship", question: "Which trait is most associated with successful entrepreneurs?", options: ["Fear of taking risks", "Initiative and proactiveness", "Waiting for instructions", "Avoiding customer interaction"], correct: 1, explanation: "Entrepreneurs are characterized by initiative, proactiveness, and willingness to take calculated risks." },
+  { section: "Entrepreneurship", question: "What is opportunity-seeking behavior?", options: ["Waiting for opportunities to come", "Actively identifying and pursuing business opportunities", "Avoiding new markets", "Copying competitors exactly"], correct: 1, explanation: "Opportunity-seeking behavior means actively scanning the environment for new business possibilities." },
+  { section: "Entrepreneurship", question: "Why is resilience important for entrepreneurs?", options: ["It helps them avoid failure", "It enables them to recover from setbacks and persist toward goals", "It means never changing plans", "It eliminates competition"], correct: 1, explanation: "Resilience allows entrepreneurs to recover from failures, learn from mistakes, and continue pursuing their goals." },
+  { section: "Entrepreneurship", question: "What is a growth mindset?", options: ["Believing abilities are fixed and cannot change", "Viewing challenges as opportunities to learn and improve", "Focusing only on short-term profits", "Hiring as few employees as possible"], correct: 1, explanation: "A growth mindset views challenges as learning opportunities and believes abilities can be developed through effort." },
+  { section: "Entrepreneurship", question: "Which of the following demonstrates customer focus?", options: ["Ignoring customer complaints", "Actively seeking and responding to customer feedback", "Setting prices without market research", "Producing only what the farmer likes"], correct: 1, explanation: "Customer focus means actively listening to customers, responding to feedback, and aligning products with their needs." },
+
+  // === CUSTOMER SERVICE & QUALITY (Q86-90) ===
+  { section: "Customer Service", question: "What is the first step in providing quality customer service?", options: ["Ignore the customer until they ask for help", "Greet the customer warmly and offer assistance", "Show them the most expensive product", "Ask for their personal information"], correct: 1, explanation: "Quality service starts with a warm greeting, making the customer feel welcome and valued." },
+  { section: "Customer Service", question: "How should a customer complaint be handled?", options: ["Ignore it and hope it goes away", "Listen professionally, apologize, and resolve the issue", "Blame the customer", "Tell them to go elsewhere"], correct: 1, explanation: "Handle complaints by listening actively, apologizing sincerely, and taking steps to resolve the issue." },
+  { section: "Customer Service", question: "What does 'complying with quality and ethical standards' mean?", options: ["Cutting corners to save money", "Following established norms and being honest in all dealings", "Only caring about profits", "Copying competitor products illegally"], correct: 1, explanation: "Compliance means following established quality norms, being honest, and meeting regulatory requirements." },
+  { section: "Customer Service", question: "Why is it important to follow up with customers after a sale?", options: ["To ask for more money", "To ensure satisfaction and build long-term relationships", "To sell them something immediately", "It is not important"], correct: 1, explanation: "Follow-up ensures customer satisfaction, addresses issues early, and builds loyalty and repeat business." },
+  { section: "Customer Service", question: "What is a key element of ethical business practice?", options: ["Deceiving customers about product origin", "Transparency and honest representation", "Hiding product defects", "Misrepresenting organic status"], correct: 1, explanation: "Ethical business requires transparency, honest representation of products, and integrity in all dealings." },
+
+  // === TECHNOLOGY & INNOVATION (Q91-100) ===
+  { section: "Tech & Innovation", question: "How can technology help reduce post-harvest losses?", options: ["By harvesting crops earlier", "Through improved cold chain storage and processing equipment", "By using more pesticides", "By eliminating packaging"], correct: 1, explanation: "Cold chain technology (refrigeration, cold storage) and processing equipment significantly reduce post-harvest losses." },
+  { section: "Tech & Innovation", question: "What is precision agriculture?", options: ["Farming without any technology", "Using GPS, sensors, and data to optimize field-level management", "Growing only one type of crop", "Manual measurement of all farm activities"], correct: 1, explanation: "Precision agriculture uses GPS, sensors, drones, and data analytics to optimize inputs and maximize yields." },
+  { section: "Tech & Innovation", question: "Which technology can help farmers monitor crop health from above?", options: ["Tractor", "Drone (UAV)", "Shovel", "Wheelbarrow"], correct: 1, explanation: "Drones (UAVs) with cameras and sensors can monitor crop health, detect pests, and assess irrigation needs from above." },
+  { section: "Tech & Innovation", question: "What is hydroponics?", options: ["Growing crops in soil with extra water", "Growing plants in nutrient-rich water without soil", "A method of drying crops", "Traditional rice farming"], correct: 1, explanation: "Hydroponics is soilless cultivation where plants grow in nutrient-rich water solutions." },
+  { section: "Tech & Innovation", question: "How can mobile phones benefit agro-entrepreneurs?", options: ["They cannot help farming", "Access to market prices, weather info, mobile banking, and extension services", "Only for entertainment", "Only for making calls"], correct: 1, explanation: "Mobile phones provide access to market prices, weather forecasts, mobile banking, and agricultural extension information." },
+  { section: "Tech & Innovation", question: "What is vertical farming?", options: ["Farming on mountain slopes", "Growing crops in stacked layers in controlled environments", "Planting trees vertically", "Using vertical irrigation pipes only"], correct: 1, explanation: "Vertical farming grows crops in stacked layers indoors with controlled light, temperature, and nutrients." },
+  { section: "Tech & Innovation", question: "Which renewable energy source is most applicable to Philippine farms?", options: ["Nuclear power", "Solar power", "Coal power", "Natural gas"], correct: 1, explanation: "Solar power is well-suited to Philippine farms due to abundant sunshine, and can power irrigation, drying, and storage." },
+  { section: "Tech & Innovation", question: "What is the Internet of Things (IoT) in agriculture?", options: ["A type of fertilizer", "Network of sensors and devices that collect and exchange farm data", "A social media platform", "A farm insurance policy"], correct: 1, explanation: "Agricultural IoT connects sensors, weather stations, and irrigation systems to collect and analyze farm data automatically." },
+  { section: "Tech & Innovation", question: "How does biotechnology contribute to agriculture?", options: ["It has no agricultural application", "Through improved crop varieties, pest resistance, and higher yields", "By replacing all farmers with robots", "Only for pharmaceutical use"], correct: 1, explanation: "Biotechnology develops improved crop varieties with pest resistance, drought tolerance, and enhanced nutritional content." },
+  { section: "Tech & Innovation", question: "What is the main benefit of using e-commerce for agricultural marketing?", options: ["It increases production costs", "It expands market reach beyond local boundaries and reduces intermediary costs", "It eliminates the need for quality standards", "It only works for large corporations"], correct: 1, explanation: "E-commerce platforms expand market reach, connect farmers directly to consumers, and reduce intermediary costs." }
+];
+
+// ---- Quiz State ----
+let currentQ = 0;
+let score = 0;
+let answered = new Array(quizQuestions.length).fill(false);
+
+function renderQuiz() {
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+  quizQuestions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'quiz-q-card' + (i === 0 ? ' visible' : '');
+    card.id = 'qcard-' + i;
+    card.innerHTML = `
+      <div class="quiz-q-section">${q.section}</div>
+      <div class="quiz-q-text">${i+1}. ${q.question}</div>
+      <div class="options">
+        ${q.options.map((opt, j) => `
+          <button class="option-btn" id="opt-${i}-${j}" onclick="selectOption(${i},${j})" ${answered[i] ? 'disabled' : ''}>
+            <span class="opt-letter">${String.fromCharCode(65+j)}.</span>
+            <span>${opt}</span>
+          </button>
+        `).join('')}
+      </div>
+      <div class="feedback-msg" id="feedback-${i}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function selectOption(qIdx, optIdx) {
+  if (answered[qIdx]) return;
+  answered[qIdx] = true;
+  const q = quizQuestions[qIdx];
+  const isCorrect = optIdx === q.correct;
+  if (isCorrect) score++;
+
+  // Mark all options
+  q.options.forEach((_, j) => {
+    const btn = document.getElementById(`opt-${qIdx}-${j}`);
+    btn.disabled = true;
+    if (j === q.correct) btn.classList.add('correct');
+    else if (j === optIdx && !isCorrect) btn.classList.add('wrong');
+  });
+
+  const fb = document.getElementById(`feedback-${qIdx}`);
+  fb.className = 'feedback-msg visible ' + (isCorrect ? 'correct' : 'wrong');
+  fb.innerHTML = (isCorrect ? '&#10004; Correct! ' : '&#10008; Incorrect. ') + q.explanation;
+}
+
+function showCard(idx) {
+  document.querySelectorAll('.quiz-q-card').forEach(c => c.classList.remove('visible'));
+  const card = document.getElementById('qcard-' + idx);
+  if (card) card.classList.add('visible');
+  document.getElementById('quizCounter').textContent = `Question ${idx+1} of ${quizQuestions.length}`;
+  document.getElementById('quizProgress').style.width = ((idx+1)/quizQuestions.length*100) + '%';
+  document.getElementById('prevBtn').disabled = idx === 0;
+  document.getElementById('nextBtn').textContent = idx === quizQuestions.length-1 ? 'Finish' : 'Next \u2192';
+}
+
+function nextQ() {
+  if (currentQ < quizQuestions.length - 1) {
+    currentQ++;
+    showCard(currentQ);
+  } else {
+    showScore();
+  }
+}
+
+function prevQ() {
+  if (currentQ > 0) {
+    currentQ--;
+    showCard(currentQ);
+  }
+}
+
+function showScore() {
+  document.querySelectorAll('.quiz-q-card').forEach(c => c.classList.remove('visible'));
+  document.getElementById('quizCounter').textContent = 'Quiz Complete';
+  document.getElementById('quizProgress').style.width = '100%';
+  document.querySelector('.quiz-nav').style.display = 'none';
+  const pct = (score / quizQuestions.length) * 100;
+  let grade, gradeClass, msg;
+  if (pct >= 90) { grade = 'Outstanding!'; gradeClass = 'grade-pass'; msg = 'Excellent mastery of all competency areas. You are well-prepared for the NC II assessment.'; }
+  else if (pct >= 80) { grade = 'Passed'; gradeClass = 'grade-pass'; msg = 'Strong performance. Review the questions you missed to strengthen weak areas.'; }
+  else if (pct >= 70) { grade = 'Passed'; gradeClass = 'grade-pass'; msg = 'You passed. Focus review on sections where you had the most incorrect answers.'; }
+  else { grade = 'Needs Improvement'; gradeClass = 'grade-fail'; msg = 'More study needed. Review all sections thoroughly before attempting the assessment.'; }
+  document.getElementById('scoreBig').textContent = score;
+  document.getElementById('scoreGrade').textContent = grade;
+  document.getElementById('scoreGrade').className = 'score-grade ' + gradeClass;
+  document.getElementById('scoreMessage').textContent = msg;
+  document.getElementById('scoreDisplay').classList.add('visible');
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  score = 0;
+  answered = new Array(quizQuestions.length).fill(false);
+  document.querySelector('.quiz-nav').style.display = 'flex';
+  document.getElementById('scoreDisplay').classList.remove('visible');
+  renderQuiz();
+  showCard(0);
+}
+
+// Initialize quiz
+renderQuiz();
+showCard(0);
+</script>
+
+</body>
+</html>
